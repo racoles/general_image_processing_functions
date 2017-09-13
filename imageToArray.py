@@ -11,12 +11,15 @@ images to arrays.
 Modules:
 openFile
     This function creates an open file dialogue box and returns the name of the user selected file.
+getFileNameFromPath
+    Extract filenames from paths, no matter what the operating system or path format is from.
 nonFitsImageToArray
     This function converts a non-FITs type image to an array.
 '''
 
 # Import #######################################################################################
 from tkinter import filedialog
+from ntpath import split, basename
 from PIL import Image
 ################################################################################################
 
@@ -31,6 +34,13 @@ class imageToArray(object):
         Create open file dialogue box
         '''
         return filedialog.askopenfilename()
+    
+    def _getFileNameFromPath(self, path):
+        '''
+        Extract filenames from paths, no matter what the operating system or path format is from
+        '''
+        head, tail = split(path)
+        return tail or basename(head)
         
     def nonFitsImageToArray(self):
         '''
@@ -38,13 +48,18 @@ class imageToArray(object):
         '''
         #open image file
         try:
-            fileName = self._openFile()
+            filePath = self._openFile()
         except IOError:
             print('The file could not be opened, or no file was selected.')
         try:
-            im = Image.open(fileName, ' r')
+            im = Image.open(filePath, ' r')
         except IOError:
             print('The file could not be opened')
         #read pixel values to list 
-        #(list with each pixel value as a set of 4 values(R,G,B.A))
-        pix_val = list(im.getdata())
+        #(list with each pixel value as a set of 4 values(R,G,B,A))
+        pixelValues = list(im.getdata())
+        #save pixel values to file
+        theFile = open(self.getFileNameFromPath(filePath) + '.txt', 'w')
+        for pixel in pixelValues:
+            theFile.write("%s\n" % pixel)
+        
