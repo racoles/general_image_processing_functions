@@ -62,4 +62,10 @@ class imageToArray(object):
         theFile = open(self.getFileNameFromPath(filePath) + '.txt', 'w')
         for pixel in pixelValues:
             theFile.write("%s\n" % pixel)
+            
+    def colorFinder(self, colorArray, colorValue):
+        '''
+        '''
+        pass
+        
         
