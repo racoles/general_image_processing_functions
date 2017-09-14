@@ -14,6 +14,7 @@ nonFitsImageToArray
 '''
 
 # Import #######################################################################################
+from numpy import array
 from PIL import Image
 from fileHandling import fileHandling
 ################################################################################################
@@ -38,9 +39,9 @@ class imageToArray(object):
             im = Image.open(filePath, ' r')
         except IOError:
             print('The file could not be opened')
-        #read pixel values to list 
+        #read pixel values to a numpy array 
         #(list with each pixel value as a set of 4 values(R,G,B,A))
-        pixelValues = list(im.getdata())
+        pixelValues = array(im.getdata())
         #save pixel values to file
         theFile = open(fileHandling.getFileNameFromPath(filePath) + '.txt', 'w')
         for pixel in pixelValues:
