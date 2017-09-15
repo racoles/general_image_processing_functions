@@ -15,4 +15,4 @@ from imageToArray import imageToArray
 
 if __name__ == '__main__':
     im = imageToArray()
-    im.nonFitsImageToArray()
+    im.nonfitsImageToArray()

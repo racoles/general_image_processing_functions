@@ -34,7 +34,7 @@ class fileHandling(object):
     
     def getFileNameFromPath(self, path):
         '''
-        Extract filenames from paths, no matter what the operating system or path format is from
+        Extract filenames from paths, no matter where the operating system or path format is from
         '''
         head, tail = split(path)
         return tail or basename(head)

@@ -1,7 +1,7 @@
 '''
 @title imageToArray
 @author: Rebecca Coles
-Updated on Sep 14, 2017
+Updated on Sep 15, 2017
 Created on Sep 13, 2017
 
 imageToArray
@@ -14,7 +14,7 @@ nonFitsImageToArray
 '''
 
 # Import #######################################################################################
-from numpy import asarray
+from numpy import asarray,savetxt
 from PIL import Image
 from fileHandling import fileHandling
 ################################################################################################
@@ -26,27 +26,29 @@ class imageToArray(object):
         Constructor
         '''
         
-    def nonFitsImageToArray(self):
+    def nonfitsImageToArray(self):
         '''
         Convert a non-FITs type image to an array
         '''
         #open image file
-        imageFile = fileHandling()
+        filePath = fileHandling()
         try:
-            filePath = imageFile.openFile()
+            imageFileLocation = filePath.openFile()
         except IOError:
             print('The file could not be opened, or no file was selected.')
         try:
-            im = Image.open(filePath)
+            im = Image.open(imageFileLocation)
         except IOError:
             print('The file could not be opened.')
         #read pixel values to a numpy array 
-        #(array with each pixel value as a set of 6 values: row, column, R,G,B,A)
+            #(array with each pixel value as a set of 3 or 4 values: R,G,B,A)
         pixelValues = asarray(im)
+        #save row and column values to file
+        saveFile = open(filePath.getFileNameFromPath(imageFileLocation) + '.csv', 'w')
+        [[saveFile.write("{0},{1},\n".format(ii+1, jj+1)) for jj in range(pixelValues.shape[1])] for ii in range(pixelValues.shape[0])]
         #save pixel values to file
-        print(pixelValues.shape)
-        #theFile = open(fileHandling.getFileNameFromPath(filePath) + '.txt', 'w')
-        #for pixel in pixelValues:
-        #    theFile.write("%s\n" % pixel)
+        #savetxt(saveFile, pixelValues, delimiter=',')
+        
+        
         
         
