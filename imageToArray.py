@@ -31,8 +31,9 @@ class imageToArray(object):
         Convert a non-FITs type image to an array
         '''
         #open image file
+        filePath = fileHandling()
         try:
-            filePath = fileHandling.openFile()
+            filePath.openFile()
         except IOError:
             print('The file could not be opened, or no file was selected.')
         try:
