@@ -44,7 +44,7 @@ class imageToArray(object):
         #(array with each pixel value as a set of 6 values: row, column, R,G,B,A)
         pixelValues = asarray(im)
         #save pixel values to file
-        print(pixelValues)
+        print(pixelValues.shape)
         #theFile = open(fileHandling.getFileNameFromPath(filePath) + '.txt', 'w')
         #for pixel in pixelValues:
         #    theFile.write("%s\n" % pixel)
