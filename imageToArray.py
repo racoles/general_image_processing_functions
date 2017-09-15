@@ -31,13 +31,13 @@ class imageToArray(object):
         Convert a non-FITs type image to an array
         '''
         #open image file
-        filePath = fileHandling()
+        imageFile = fileHandling()
         try:
-            filePath.openFile()
+            filePath = imageFile.openFile()
         except IOError:
             print('The file could not be opened, or no file was selected.')
         try:
-            im = Image.open(filePath, ' r')
+            im = Image.open(filePath)
         except IOError:
             print('The file could not be opened.')
         #read pixel values to a numpy array 
