@@ -46,7 +46,7 @@ class imageToArray(object):
         #save pixel (row, column, values) to file
         data = []
         [[data.append(str(ii+1) + ',' + str(jj+1) + ',' + ','.join(str(pixelValues[ii,jj])) + '\n') for jj in range(pixelValues.shape[1])] for ii in range(pixelValues.shape[0])]
-        with open(filePath.getFileNameFromPath(imageFileLocation), "w") as output:
+        with open(filePath.getFileNameFromPath(imageFileLocation) + '.csv', "w") as output:
             output.write(str(data))
         
         
