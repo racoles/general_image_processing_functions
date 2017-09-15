@@ -14,6 +14,8 @@ nonFitsImageToArray
 '''
 
 # Import #######################################################################################
+from csv import writer
+from itertools import repeat
 from numpy import asarray,savetxt
 from PIL import Image
 from fileHandling import fileHandling
@@ -43,11 +45,10 @@ class imageToArray(object):
         #read pixel values to a numpy array 
             #(array with each pixel value as a set of 3 or 4 values: R,G,B,A)
         pixelValues = asarray(im)
-        #save row and column values to file
-        saveFile = open(filePath.getFileNameFromPath(imageFileLocation) + '.csv', 'w')
-        [[saveFile.write("{0},{1},\n".format(ii+1, jj+1)) for jj in range(pixelValues.shape[1])] for ii in range(pixelValues.shape[0])]
-        #append pixel values to file
-        #savetxt(saveFile, pixelValues, delimiter=',')
+        #save pixel (row, column, values) to file
+        data = []
+        [[data.append(str(ii+1) + ',' + str(jj+1) + ',' + ','.join(pixelValues[ii,jj])) for jj in range(pixelValues.shape[1])] for ii in range(pixelValues.shape[0])]
+        savetxt(filePath.getFileNameFromPath(imageFileLocation) + '.csv', data)
         
         
         
