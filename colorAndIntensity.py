@@ -47,3 +47,4 @@ class colorAndIntensity(object):
             if 'a' in kwargs:
                 [colorCutPixels.append(colorArray[ll]) for ll in colorArray if colorArray[ll][0] >= kwargs.get('a')]
         #return list of accepted pixels
+        return colorCutPixels
