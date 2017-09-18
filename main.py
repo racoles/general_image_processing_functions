@@ -19,4 +19,3 @@ if __name__ == '__main__':
     cl = colorAndIntensity()
     
     cutList = cl.colorFinder(im.nonfitsImageToArray(), r=120)
-    print(cutList)
