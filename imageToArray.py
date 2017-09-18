@@ -43,15 +43,6 @@ class imageToArray(object):
         #read pixel values to a numpy array 
             #(array with each pixel value as a set of 3 or 4 values: R,G,B,A)
         pixelValues = asarray(im)
-        #save pixel (row, column, values) to file
-        #data = []
-        #[[data.append(str(ii+1) + ' ' + str(jj+1) + ' ' + str(pixelValues[ii,jj]) + '\n') for jj in range(pixelValues.shape[1])] for ii in range(pixelValues.shape[0])]
-        #remove extra characters
-        #data = [item.replace(']', "") for item in data]
-        #data = [item.replace('[', "") for item in data]
-        #write to file
-        #with open(filePath.getFileNameFromPath(imageFileLocation) + '.txt', "w") as output:
-        #    output.write('\n'.join(data))
         return pixelValues
         
         

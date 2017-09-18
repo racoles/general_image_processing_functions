@@ -15,6 +15,7 @@ colorFinder
 '''
 
 # Import #######################################################################################
+from numpy import vstack, array
 ################################################################################################
 
 class colorAndIntensity(object):
@@ -31,12 +32,13 @@ class colorAndIntensity(object):
         '''
         #Initialize empty list that will be filled with pixels that fit the 
             #users RGBA criteria.
-        colorCutPixels = []
+        colorCutPixels = array([])
         #Search the data based on the colors that the user has specified
         if kwargs is not None:
             #Red
             if 'r' in kwargs:
-                [colorCutPixels.extend([ii, jj, colorArray[ii,jj,:]]) for ii in range(colorArray.shape[0]) for jj in range(colorArray.shape[1]) if colorArray[ii,jj,0] >= kwargs.get('r')]
+                colorCutPixels = vstack((colorCutPixels, colorArray[:,:,0] >= kwargs.get('r')))
+                #[colorCutPixels.extend([ii, jj, colorArray[ii,jj,:]]) for ii in range(colorArray.shape[0]) for jj in range(colorArray.shape[1]) if colorArray[ii,jj,0] >= kwargs.get('r')]
             #Green
             if 'g' in kwargs:
                 [colorCutPixels.extend([kk, ll, colorArray[kk,ll,:]]) for kk in range(colorArray.shape[0]) for ll in range(colorArray.shape[1]) if colorArray[kk,ll,1] >= kwargs.get('g')]
