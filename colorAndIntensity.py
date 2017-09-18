@@ -36,15 +36,15 @@ class colorAndIntensity(object):
         if kwargs is not None:
             #Red
             if 'r' in kwargs:
-                [colorCutPixels.append(colorArray[ii]) for ii in colorArray if colorArray[ii][0] >= kwargs.get('r')]
+                [colorCutPixels.append(colorArray[ii,:]) for ii in colorArray if colorArray[ii,2] >= kwargs.get('r')]
             #Green
             if 'g' in kwargs:
-                [colorCutPixels.append(colorArray[jj]) for jj in colorArray if colorArray[jj][0] >= kwargs.get('g')]
+                [colorCutPixels.append(colorArray[jj,:]) for jj in colorArray if colorArray[jj,3] >= kwargs.get('g')]
             #Blue
             if 'b' in kwargs:
-                [colorCutPixels.append(colorArray[kk]) for kk in colorArray if colorArray[kk][0] >= kwargs.get('b')]
+                [colorCutPixels.append(colorArray[kk,:]) for kk in colorArray if colorArray[kk,4] >= kwargs.get('b')]
             #Alpha
             if 'a' in kwargs and colorArray.shape[1] >= 5: #to account for a RGB image as opposed to a RGBA
-                [colorCutPixels.append(colorArray[ll]) for ll in colorArray if colorArray[ll][0] >= kwargs.get('a')]
+                [colorCutPixels.append(colorArray[ll,:]) for ll in colorArray if colorArray[ll,5] >= kwargs.get('a')]
         #return list of accepted pixels
         return colorCutPixels

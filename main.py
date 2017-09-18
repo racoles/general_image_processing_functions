@@ -16,4 +16,7 @@ from colorAndIntensity import colorAndIntensity
 
 if __name__ == '__main__':
     im = imageToArray()
-    cutList = colorAndIntensity.colorFinder(im.nonfitsImageToArray(), r=1000)
+    cl = colorAndIntensity()
+    
+    cutList = cl.colorFinder(im.nonfitsImageToArray(), r=1000)
+    print(cutList)

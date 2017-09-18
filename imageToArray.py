@@ -52,7 +52,7 @@ class imageToArray(object):
         #write to file
         with open(filePath.getFileNameFromPath(imageFileLocation) + '.txt', "w") as output:
             output.write('\n'.join(data))
-        return data
+        return pixelValues
         
         
         
