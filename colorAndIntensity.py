@@ -36,16 +36,16 @@ class colorAndIntensity(object):
         if kwargs is not None:
             #Red
             if 'r' in kwargs:
-                [colorCutPixels.extend(ii, jj, colorArray[ii,jj,:]) for ii in range(colorArray.shape[0]) for jj in range(colorArray.shape[1]) if colorArray[ii,jj,0] >= kwargs.get('r')]
+                [colorCutPixels.extend([ii, jj, colorArray[ii,jj,:]]) for ii in range(colorArray.shape[0]) for jj in range(colorArray.shape[1]) if colorArray[ii,jj,0] >= kwargs.get('r')]
             #Green
             if 'g' in kwargs:
-                [colorCutPixels.extend(kk, ll, colorArray[kk,ll,:]) for kk in range(colorArray.shape[0]) for ll in range(colorArray.shape[1]) if colorArray[kk,ll,1] >= kwargs.get('g')]
+                [colorCutPixels.extend([kk, ll, colorArray[kk,ll,:]]) for kk in range(colorArray.shape[0]) for ll in range(colorArray.shape[1]) if colorArray[kk,ll,1] >= kwargs.get('g')]
             #Blue
             if 'b' in kwargs:
-                [colorCutPixels.extend(mm, nn, colorArray[mm,nn,:]) for mm in range(colorArray.shape[0]) for nn in range(colorArray.shape[1]) if colorArray[mm,nn,2] >= kwargs.get('b')]
+                [colorCutPixels.extend([mm, nn, colorArray[mm,nn,:]]) for mm in range(colorArray.shape[0]) for nn in range(colorArray.shape[1]) if colorArray[mm,nn,2] >= kwargs.get('b')]
             #Alpha
             if 'a' in kwargs and colorArray.shape[1] >= 5: #to account for a RGB image as opposed to a RGBA
-                [colorCutPixels.extend(oo, pp, colorArray[oo,pp,:]) for oo in range(colorArray.shape[0]) for pp in range(colorArray.shape[1]) if colorArray[oo,pp,3] >= kwargs.get('a')]
+                [colorCutPixels.extend([oo, pp, colorArray[oo,pp,:]]) for oo in range(colorArray.shape[0]) for pp in range(colorArray.shape[1]) if colorArray[oo,pp,3] >= kwargs.get('a')]
         #return list of accepted pixels
         print(colorCutPixels) 
         return colorCutPixels
