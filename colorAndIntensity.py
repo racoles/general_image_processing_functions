@@ -33,19 +33,18 @@ class colorAndIntensity(object):
             #users RGBA criteria.
         colorCutPixels = []
         #Search the data based on the colors that the user has specified
-        print(colorArray[5,:])
         if kwargs is not None:
             #Red
             if 'r' in kwargs:
-                [colorCutPixels.append(colorArray[ii,:]) for ii in colorArray if colorArray[ii,0] >= kwargs.get('r')]
+                [colorCutPixels.append(colorArray[ii,jj,:]) for ii in range(colorArray.shape[0]) for jj in range(colorArray.shape[1]) if colorArray[ii,jj,0] >= kwargs.get('r')]
             #Green
             if 'g' in kwargs:
-                [colorCutPixels.append(colorArray[jj,:]) for jj in colorArray if colorArray[jj,1] >= kwargs.get('g')]
+                [colorCutPixels.append(colorArray[kk,ll,:]) for kk in range(colorArray.shape[0]) for ll in range(colorArray.shape[1]) if colorArray[kk,ll,1] >= kwargs.get('g')]
             #Blue
             if 'b' in kwargs:
-                [colorCutPixels.append(colorArray[kk,:]) for kk in colorArray if colorArray[kk,2] >= kwargs.get('b')]
+                [colorCutPixels.append(colorArray[mm,nn,:]) for mm in range(colorArray.shape[0]) for nn in range(colorArray.shape[1]) if colorArray[mm,nn,2] >= kwargs.get('b')]
             #Alpha
             if 'a' in kwargs and colorArray.shape[1] >= 5: #to account for a RGB image as opposed to a RGBA
-                [colorCutPixels.append(colorArray[ll,:]) for ll in colorArray if colorArray[ll,3] >= kwargs.get('a')]
+                [colorCutPixels.append(colorArray[oo,pp,:]) for oo in range(colorArray.shape[0]) for pp in range(colorArray.shape[1]) if colorArray[oo,pp,3] >= kwargs.get('a')]
         #return list of accepted pixels
         return colorCutPixels
