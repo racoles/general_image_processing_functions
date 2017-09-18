@@ -44,7 +44,7 @@ class colorAndIntensity(object):
             if 'b' in kwargs:
                 [colorCutPixels.append(colorArray[kk]) for kk in colorArray if colorArray[kk][0] >= kwargs.get('b')]
             #Alpha
-            if 'a' in kwargs:
+            if 'a' in kwargs and colorArray.shape[1] >= 5: #to account for a RGB image as opposed to a RGBA
                 [colorCutPixels.append(colorArray[ll]) for ll in colorArray if colorArray[ll][0] >= kwargs.get('a')]
         #return list of accepted pixels
         return colorCutPixels
