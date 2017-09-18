@@ -1,7 +1,7 @@
 '''
 @title imageToArray
 @author: Rebecca Coles
-Updated on Sep 15, 2017
+Updated on Sep 18, 2017
 Created on Sep 13, 2017
 
 imageToArray
@@ -45,9 +45,13 @@ class imageToArray(object):
         pixelValues = asarray(im)
         #save pixel (row, column, values) to file
         data = []
-        [[data.append(str(ii+1) + ',' + str(jj+1) + ',' + ','.join(str(pixelValues[ii,jj])) + '\n') for jj in range(pixelValues.shape[1])] for ii in range(pixelValues.shape[0])]
-        with open(filePath.getFileNameFromPath(imageFileLocation) + '.csv', "w") as output:
-            output.write(str(data))
+        [[data.append(str(ii+1) + ' ' + str(jj+1) + ' ' + str(pixelValues[ii,jj]) + '\n') for jj in range(pixelValues.shape[1])] for ii in range(pixelValues.shape[0])]
+        #remove extra characters
+        data = [item.replace(']', "") for item in data]
+        data = [item.replace('[', "") for item in data]
+        #write to file
+        with open(filePath.getFileNameFromPath(imageFileLocation) + '.txt', "w") as output:
+            output.write('\n'.join(data))
         
         
         
