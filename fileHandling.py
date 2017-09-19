@@ -1,7 +1,7 @@
 '''
 @title fileHandling
 @author: Rebecca Coles
-Updated on Sep 14, 2017
+Updated on Sep 19, 2017
 Created on Sep 14, 2017
 
 fileHandling
@@ -38,4 +38,10 @@ class fileHandling(object):
         '''
         head, tail = split(path)
         return tail or basename(head)
-        
+    
+    def pythonListToFile(self, pythonList, fileName):
+        '''
+        Save a python list to a file
+        '''
+        thefile = open(fileName + '.txt', 'w')
+        [thefile.write("%s\n" % str(item)) for item in pythonList]

@@ -39,10 +39,9 @@ class colorAndIntensity(object):
                 [colorCutPixels.append([ii, jj, colorArray[ii,jj,:].tolist()]) for ii in range(colorArray.shape[0]) for jj in range(colorArray.shape[1]) if colorArray[ii,jj,0] >= kwargs.get('r')]
             #Green
             if 'g' in kwargs:
-                [colorCutPixels.append([kk, ll, colorArray[kk,ll,:]]) for kk in range(colorArray.shape[0]) for ll in range(colorArray.shape[1]) if colorArray[kk,ll,1] >= kwargs.get('g')]
+                [colorCutPixels.append([kk, ll, colorArray[kk,ll,:].tolist()]) for kk in range(colorArray.shape[0]) for ll in range(colorArray.shape[1]) if colorArray[kk,ll,1] >= kwargs.get('g')]
             #Blue
             if 'b' in kwargs:
-                [colorCutPixels.append([mm, nn, colorArray[mm,nn,:]]) for mm in range(colorArray.shape[0]) for nn in range(colorArray.shape[1]) if colorArray[mm,nn,2] >= kwargs.get('b')]
+                [colorCutPixels.append([mm, nn, colorArray[mm,nn,:].tolist()]) for mm in range(colorArray.shape[0]) for nn in range(colorArray.shape[1]) if colorArray[mm,nn,2] >= kwargs.get('b')]
         #return list of accepted pixels
-        print(colorCutPixels) 
         return colorCutPixels
