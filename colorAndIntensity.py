@@ -50,3 +50,8 @@ class colorAndIntensity(object):
         saveFile.pythonListToFile(colorCutPixels, 'colorCut_' + str(date.today()))
         #return list of accepted pixels
         return colorCutPixels
+    
+    def colorFinderPlot (self, sizeRows, sizeColumns, colorFinderData):
+        '''
+        See colorFinder list as plot of pixels
+        '''
