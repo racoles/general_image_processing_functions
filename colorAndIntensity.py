@@ -15,6 +15,8 @@ colorFinder
 '''
 
 # Import #######################################################################################
+from fileHandling import fileHandling
+from datetime import date
 ################################################################################################
 
 class colorAndIntensity(object):
@@ -43,5 +45,8 @@ class colorAndIntensity(object):
             #Blue
             if 'b' in kwargs:
                 [colorCutPixels.append([mm, nn, colorArray[mm,nn,:].tolist()]) for mm in range(colorArray.shape[0]) for nn in range(colorArray.shape[1]) if colorArray[mm,nn,2] >= kwargs.get('b')]
+        #save list to file
+        saveFile = fileHandling()
+        saveFile.pythonListToFile(colorCutPixels, 'colorCut_' + str(date.today()))
         #return list of accepted pixels
         return colorCutPixels
