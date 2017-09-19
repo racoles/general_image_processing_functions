@@ -13,6 +13,8 @@ openFile
     This function creates an open file dialogue box and returns the name of the user selected file.
 getFileNameFromPath
     Extract filenames from paths, no matter what the operating system or path format is from.
+pythonListToFile
+    Save a python list to a file.
 '''
 
 # Import #######################################################################################
