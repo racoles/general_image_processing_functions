@@ -47,3 +47,4 @@ class fileHandling(object):
         '''
         thefile = open(fileName + '.txt', 'w')
         [thefile.write("%s\n" % str(item)) for item in pythonList]
+        
