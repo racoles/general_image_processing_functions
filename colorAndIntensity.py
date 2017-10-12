@@ -5,13 +5,15 @@ Updated on Sep 18, 2017
 Created on Sep 14, 2017
 
 colorAndIntensity
-This module holds a series of functions that I use to convert
+This module holds a series of functions that I use to convert or
 analyze the color or intensity of values in an image.
 
 Modules:
 colorFinder
     This function searches an array for a given RGBA color value above a given
     threshold, and returns a list of all of the pixels that meet that criteria.
+convertToGrayscale
+    This function converts RGB images to grayscale.
 '''
 
 # Import #######################################################################################
@@ -50,3 +52,12 @@ class colorAndIntensity(object):
         saveFile.pythonListToFile(colorCutPixels, 'colorCut_' + str(date.today()))
         #return list of accepted pixels
         return colorCutPixels
+    
+    def convertToGrayscale(self, RGBImage):
+        '''
+        Convert RGB images to grayscale
+        '''
+        #Check dimensions of image
+        #If 2D (one image)
+        #If 3D (array of 2D images)
+        x=x.convert('L')

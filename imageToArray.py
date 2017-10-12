@@ -21,7 +21,6 @@ from PIL import Image
 from fileHandling import fileHandling
 from numpy import array
 from glob import glob
-from PIL import Image
 ################################################################################################
 
 class imageToArray(object):
@@ -57,7 +56,7 @@ class imageToArray(object):
         #open image file
         dirPath = fileHandling()
         try:
-            dirLocation = dirPath.openDir()
+            dirLocation = dirPath.openDir(title='Please select a directory for input images')
         except IOError:
             print('The directory could not be opened, or no directory was selected.') 
         filelist = glob(dirLocation + '/*.*')
