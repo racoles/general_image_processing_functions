@@ -20,6 +20,9 @@ pythonListToFile
 # Import #######################################################################################
 from tkinter import filedialog
 from ntpath import split, basename
+from numpy import array
+from glob import glob
+from PIL import Image
 ################################################################################################
 
 class fileHandling(object):
@@ -47,4 +50,9 @@ class fileHandling(object):
         '''
         thefile = open(fileName + '.txt', 'w')
         [thefile.write("%s\n" % str(item)) for item in pythonList]
+        
+    def openAllImagesInDirectory(self, dirLoacation):
+        filelist = glob('BengaliBMPConvert/*.bmp')
+        x = array([array(Image.open(fname)) for fname in filelist])
+        return x
         
