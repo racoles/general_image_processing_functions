@@ -1,7 +1,7 @@
 '''
 @title general_image_processing_functions
 @author: Rebecca Coles
-Updated on Sep 18, 2017
+Updated on Oct 12, 2017
 Created on Sep 13, 2017
 
 general_image_processing_functions

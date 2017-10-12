@@ -11,12 +11,17 @@ images to arrays.
 Modules:
 nonFitsImageToArray
     This function converts a non-FITs type image to an array.
+openAllImagesInDirectory
+    This function converts non-FITs type images to a 3D array.
 '''
 
 # Import #######################################################################################
 from numpy import asarray
 from PIL import Image
 from fileHandling import fileHandling
+from numpy import array
+from glob import glob
+from PIL import Image
 ################################################################################################
 
 class imageToArray(object):
@@ -44,6 +49,19 @@ class imageToArray(object):
             #(array with each pixel value as a set of 3 or 4 values: R,G,B,A)
         pixelValues = asarray(im)
         return pixelValues
+    
+    def openAllImagesInDirectory(self):
+        '''
+        Open multiple images and save them to a numpy array
+        '''
+        #open image file
+        dirPath = fileHandling()
+        try:
+            dirLocation = dirPath.openDir()
+        except IOError:
+            print('The directory could not be opened, or no directory was selected.') 
+        filelist = glob(dirLocation + '/*.*')
+        return array([array(Image.open(fname)) for fname in filelist])
         
         
         
