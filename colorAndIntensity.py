@@ -57,12 +57,14 @@ class colorAndIntensity(object):
         '''
         Convert RGB numpy images to grayscale
         '''
-        #Check dimensions of image array
         #If 3D (one image)
         if len(RGBImage.shape) == 3:
-            RGBImage = RGBImage.convert('L')
+            grayImage = RGBImage.convert('L')
         #If 4D (array of 3D images)
         elif len(RGBImage.shape) == 4:
-            
+            #make appropriate size grayImage array
+            #list comprehension to convert images to grayscale
+            grayImage = RGBImage.convert('L')
         else:
             print('Image(s) can not be converted to grayscale, the array dimensions are not acceptable.')
+        return grayImage
