@@ -14,7 +14,11 @@ fwhm2D
 '''
 
 # Import #######################################################################################
-from fileHandling import fileHandling
 ################################################################################################
 
-#convert to gray scale in colorAndIntensity
+class fwhm(object):
+    
+    def __init__(self):
+        '''
+        Constructor
+        '''
