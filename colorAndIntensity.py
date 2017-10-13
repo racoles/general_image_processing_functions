@@ -13,7 +13,7 @@ colorFinder
     This function searches an array for a given RGBA color value above a given
     threshold, and returns a list of all of the pixels that meet that criteria.
 convertToGrayscale
-    This function converts RGB images to grayscale.
+    This function converts RGB numpy images to grayscale.
 '''
 
 # Import #######################################################################################
@@ -55,9 +55,14 @@ class colorAndIntensity(object):
     
     def convertToGrayscale(self, RGBImage):
         '''
-        Convert RGB images to grayscale
+        Convert RGB numpy images to grayscale
         '''
-        #Check dimensions of image
-        #If 2D (one image)
-        #If 3D (array of 2D images)
-        x=x.convert('L')
+        #Check dimensions of image array
+        #If 3D (one image)
+        if len(RGBImage.shape) == 3:
+            RGBImage = RGBImage.convert('L')
+        #If 4D (array of 3D images)
+        elif len(RGBImage.shape) == 4:
+            
+        else:
+            print('Image(s) can not be converted to grayscale, the array dimensions are not acceptable.')
