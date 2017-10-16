@@ -22,6 +22,7 @@ pythonListToFile
 # Import #######################################################################################
 from tkinter import filedialog
 from ntpath import split, basename
+from astropy.nddata import CCDData
 ################################################################################################
 
 class fileHandling(object):
@@ -56,3 +57,6 @@ class fileHandling(object):
         thefile = open(fileName + '.txt', 'w')
         [thefile.write("%s\n" % str(item)) for item in pythonList]
         
+    def saveAsFITs(self, image, filename):
+        ccd = CCDData(image, unit='adu')
+        ccd.write(filename + '.fits', overwrite=True)
