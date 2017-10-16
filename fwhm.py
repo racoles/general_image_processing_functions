@@ -29,4 +29,4 @@ class fwhm(object):
         '''
         max_y = max(array3D)  # Find the maximum y value
         xs = [x for x in range(20) if array3D[x] > max_y/2.0]
-        print max(xs)
+        print min(xs), max(xs)
