@@ -12,9 +12,14 @@ image processing that I do.
 # Import #######################################################################################
 from imageToArray import imageToArray
 from colorAndIntensity import colorAndIntensity
+from fileHandling import fileHandling
 ################################################################################################
 
 if __name__ == '__main__':
     im = imageToArray()
     cl = colorAndIntensity()
-    cutList = cl.colorFinder(im.nonfitsImageToArray(), r=150)
+    #cutList = cl.colorFinder(im.nonfitsImageToArray(), r=150)
+    fH = fileHandling()
+    image = im.nonfitsImageToArray()
+    savedFITs = fH.saveAsFITs(image, '5')
+    

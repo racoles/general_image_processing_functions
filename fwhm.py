@@ -9,8 +9,8 @@ This module holds a series of functions that I use to find the
 full-well-half-maximum of a given curve.
 
 Modules:
-fwhm4D
-    This function accepts a 4D array and finds the FWHM of all of the images within.
+fwhm3D
+    This function accepts a 3D array and finds the FWHM of the image.
 '''
 
 # Import #######################################################################################
@@ -23,8 +23,10 @@ class fwhm(object):
         Constructor
         '''
         
-    def fwhm4D(self, array4D):
+    def fwhm3D(self, array3D):
         '''
-        Accepts a 4D array and finds the FWHM of all of the images within.
+        Accepts a 3D array and finds the FWHM of the image.
         '''
-        
+        max_y = max(array3D)  # Find the maximum y value
+        xs = [x for x in range(20) if array3D[x] > max_y/2.0]
+        print max(xs)
