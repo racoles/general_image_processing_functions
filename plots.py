@@ -14,8 +14,8 @@ plotAllHist
 '''
 
 # Import #######################################################################################
-from numpy import histogram, std
-from matplotlib.pyplot import figure, ioff, hist, xlabel, ylabel, title, grid, savefig
+from numpy import std
+from matplotlib.pyplot import ioff, hist, xlabel, ylabel, title, grid, savefig
 ################################################################################################
 
 class plots(object):
