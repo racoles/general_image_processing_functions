@@ -33,9 +33,9 @@ class plots(object):
         ioff()
         #start plotting
         for image in range(imageArray4D.shape[0]):
-            n, bins, patches = hist(imageArray4D[image])
-            xlabel(' ')
-            ylabel('Counts')
+            n, bins, patches = hist(imageArray4D[image], facecolor='g')
+            xlabel('Counts (per pixel)')
+            ylabel('Frequency')
             title(str(image))
             grid(True)
             savefig(str(image) + ".png")
