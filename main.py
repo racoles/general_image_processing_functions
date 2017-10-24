@@ -14,6 +14,7 @@ from imageToArray import imageToArray
 from colorAndIntensity import colorAndIntensity
 from fileHandling import fileHandling
 from fwhm import fwhm
+from plots import plots
 ################################################################################################
 
 if __name__ == '__main__':
@@ -24,6 +25,9 @@ if __name__ == '__main__':
     #image = im.nonfitsImageToArray()
     #savedFITs = fH.saveAsFITs(image, '5')
     
-    #fwhm for a 4D array of FITs images
-    ImageArray = im.openAllFITSImagesInDirectory()
+    #hist for a 4D array of FITs images
+    pl = plots()
+    pl.plotAllHist(im.openAllFITSImagesInDirectory())
+    
+    
     
