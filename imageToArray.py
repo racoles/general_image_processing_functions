@@ -63,13 +63,6 @@ class imageToArray(object):
         fitsImages = [fits.getdata(image) for image in filelist]
         #convert to 4D numpy array
         return array(fitsImages)
-        #data =[]
-        #for fname in os.listdir(dirLocation):
-        #    pathname = os.path.join(dirLocation, fname)
-        #    img = Image.open(pathname)
-        #    img1 = img[newaxis,:,:]
-        #    data.append(img1)
-        #return data
         
         
         

@@ -22,7 +22,6 @@ if __name__ == '__main__':
     #cutList = cl.colorFinder(im.nonfitsImageToArray(), r=150)
     #image = im.nonfitsImageToArray()
     #savedFITs = fH.saveAsFITs(image, '5')
-    
     ImageArray = im.openAllFITSImagesInDirectory()
     print(ImageArray.shape)
     
