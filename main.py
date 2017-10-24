@@ -13,6 +13,7 @@ image processing that I do.
 from imageToArray import imageToArray
 from colorAndIntensity import colorAndIntensity
 from fileHandling import fileHandling
+from fwhm import fwhm
 ################################################################################################
 
 if __name__ == '__main__':
@@ -22,6 +23,7 @@ if __name__ == '__main__':
     #cutList = cl.colorFinder(im.nonfitsImageToArray(), r=150)
     #image = im.nonfitsImageToArray()
     #savedFITs = fH.saveAsFITs(image, '5')
+    
+    #fwhm for a 4D array of FITs images
     ImageArray = im.openAllFITSImagesInDirectory()
-    print(ImageArray.shape)
     

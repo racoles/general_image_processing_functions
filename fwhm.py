@@ -11,6 +11,8 @@ full-well-half-maximum of a given curve.
 Modules:
 fwhm3D
     This function accepts a 3D array and finds the FWHM of the image.
+focusCurve
+    Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
 '''
 
 # Import #######################################################################################
@@ -28,5 +30,11 @@ class fwhm(object):
         Accepts a 3D array and finds the FWHM of the image.
         '''
         max_y = max(array3D)  # Find the maximum y value
-        xs = [x for x in range(20) if array3D[x] > max_y/2.0]
+        xs = [x for x in range(20) if array3D[x] > max_y/2.0] #######################################
         return min(xs), max(xs)
+    
+    def focusCurve(self, imageArray):
+        '''
+        Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
+        '''
+        #fwhmList = 
