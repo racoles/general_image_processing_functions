@@ -11,17 +11,16 @@ images to arrays.
 Modules:
 nonFitsImageToArray
     This function converts a non-FITs type image to an array.
-openAllImagesInDirectory
-    This function converts non-FITs type images to a 3D array.
+openAllFITSImagesInDirectory
+    This function convertsFITs type images to a 4D array.
 '''
 
 # Import #######################################################################################
-from numpy import asarray
+from numpy import asarray, array, newaxis
 from PIL import Image
 from fileHandling import fileHandling
-from numpy import array, newaxis
 from glob import glob
-import os
+from astropy.io import fits
 ################################################################################################
 
 class imageToArray(object):
@@ -50,7 +49,7 @@ class imageToArray(object):
         pixelValues = asarray(im)
         return pixelValues
     
-    def openAllImagesInDirectory(self):
+    def openAllFITSImagesInDirectory(self):
         '''
         Open multiple images and save them to a numpy array
         '''
@@ -60,17 +59,17 @@ class imageToArray(object):
             dirLocation = dirPath.openDir()
         except IOError:
             print('The directory could not be opened, or no directory was selected.')
-            
-        print(dirLocation)
-        #filelist = glob(dirLocation + '/*.*')
-        #return array([array(Image.open(fname)) for fname in filelist])
-        data =[]
-        for fname in os.listdir(dirLocation):
-            pathname = os.path.join(dirLocation, fname)
-            img = Image.open(pathname)
-            img1 = img[newaxis,:,:]
-            data.append(img1)
-        return data
+        filelist = glob(dirLocation + '/*.*')
+        fitsImages = [fits.getdata(image) for image in filelist]
+        #convert to 4D numpy array
+        return array(fitsImages)
+        #data =[]
+        #for fname in os.listdir(dirLocation):
+        #    pathname = os.path.join(dirLocation, fname)
+        #    img = Image.open(pathname)
+        #    img1 = img[newaxis,:,:]
+        #    data.append(img1)
+        #return data
         
         
         

@@ -23,6 +23,6 @@ if __name__ == '__main__':
     #image = im.nonfitsImageToArray()
     #savedFITs = fH.saveAsFITs(image, '5')
     
-    ImageArray = im.openAllImagesInDirectory()
+    ImageArray = im.openAllFITSImagesInDirectory()
     print(ImageArray.shape)
     
