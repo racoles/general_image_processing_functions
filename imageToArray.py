@@ -19,8 +19,9 @@ openAllImagesInDirectory
 from numpy import asarray
 from PIL import Image
 from fileHandling import fileHandling
-from numpy import array
+from numpy import array, newaxis
 from glob import glob
+import os
 ################################################################################################
 
 class imageToArray(object):
@@ -59,8 +60,15 @@ class imageToArray(object):
             dirLocation = dirPath.openDir(title='Please select a directory for input images')
         except IOError:
             print('The directory could not be opened, or no directory was selected.') 
-        filelist = glob(dirLocation + '/*.*')
-        return array([array(Image.open(fname)) for fname in filelist])
+        #filelist = glob(dirLocation + '/*.*')
+        #return array([array(Image.open(fname)) for fname in filelist])
+        data =[]
+        for fname in os.listdir(dirLocation):
+            pathname = os.path.join(dirLocation, fname)
+            img = Image.open(pathname)
+            img1 = img[newaxis,:,:]
+            data.append(img1)
+        return data
         
         
         
