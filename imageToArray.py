@@ -62,7 +62,7 @@ class imageToArray(object):
         filelist = glob(dirLocation + '/*.*')
         fitsImages = [fits.getdata(image) for image in filelist]
         #convert to 4D numpy array
-        return array(fitsImages)
+        return array(fitsImages), filelist
         
         
         

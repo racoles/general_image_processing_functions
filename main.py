@@ -27,7 +27,8 @@ if __name__ == '__main__':
     
     #hist for a 4D array of FITs images
     pl = plots()
-    pl.plotAllHist(im.openAllFITSImagesInDirectory())
+    imageArray, fileList = im.openAllFITSImagesInDirectory()
+    pl.plotAllHist(imageArray, fileList)
     
     
     
