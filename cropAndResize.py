@@ -1,5 +1,5 @@
 '''
-@title fwhm
+@title cropAndResize
 @author: Rebecca Coles
 Updated on Oct 13, 2017
 Created on Oct 13, 2017

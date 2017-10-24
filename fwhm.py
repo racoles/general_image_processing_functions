@@ -32,9 +32,3 @@ class fwhm(object):
         max_y = max(array3D)  # Find the maximum y value
         xs = [x for x in range(20) if array3D[x] > max_y/2.0] #######################################
         return min(xs), max(xs)
-    
-    def focusCurve(self, imageArray):
-        '''
-        Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
-        '''
-        #fwhmList = 
