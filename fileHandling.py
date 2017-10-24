@@ -41,7 +41,7 @@ class fileHandling(object):
         '''
         Create open directory dialogue box
         '''
-        return filedialog.askopenfilename()
+        return filedialog.askdirectory()
     
     def getFileNameFromPath(self, path):
         '''

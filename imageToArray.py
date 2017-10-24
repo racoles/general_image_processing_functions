@@ -57,9 +57,11 @@ class imageToArray(object):
         #open image file
         dirPath = fileHandling()
         try:
-            dirLocation = dirPath.openDir(title='Please select a directory for input images')
+            dirLocation = dirPath.openDir()
         except IOError:
-            print('The directory could not be opened, or no directory was selected.') 
+            print('The directory could not be opened, or no directory was selected.')
+            
+        print(dirLocation)
         #filelist = glob(dirLocation + '/*.*')
         #return array([array(Image.open(fname)) for fname in filelist])
         data =[]

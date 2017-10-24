@@ -18,8 +18,11 @@ from fileHandling import fileHandling
 if __name__ == '__main__':
     im = imageToArray()
     cl = colorAndIntensity()
-    #cutList = cl.colorFinder(im.nonfitsImageToArray(), r=150)
     fH = fileHandling()
-    image = im.nonfitsImageToArray()
-    savedFITs = fH.saveAsFITs(image, '5')
+    #cutList = cl.colorFinder(im.nonfitsImageToArray(), r=150)
+    #image = im.nonfitsImageToArray()
+    #savedFITs = fH.saveAsFITs(image, '5')
+    
+    ImageArray = im.openAllImagesInDirectory()
+    print(ImageArray.shape)
     
