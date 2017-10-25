@@ -14,8 +14,8 @@ plotAllHist_distances
 '''
 
 # Import #######################################################################################
-from numpy import std, zeros
-from matplotlib.pyplot import ioff, xlabel, ylabel, title, grid, savefig, figure, ylim
+from numpy import std, zeros, poly1d, polyfit, linspace
+from matplotlib.pyplot import ioff, xlabel, ylabel, title, grid, savefig, figure, text
 import os
 from os.path import basename
 from operator import itemgetter
@@ -50,7 +50,7 @@ class plots(object):
             ylabel('Frequency')
             title(filelist[image] + '\n' + 'std = ' + str(stdList[image]))
             grid(True)
-            savefig(filelist[image] + ".png")
+            #savefig(filelist[image] + ".png")
             
         #plot stds
         ##create x values
@@ -65,14 +65,71 @@ class plots(object):
         [xy.append(jj) for jj in zip(xx, stdList)]
         ##sort list by distance
         sortedXY = sorted(xy, key=itemgetter(0))
+        ##best fit of data
+        ###calculate polynomial
+        sortedX = [kk[0] for kk in sortedXY]
+        sortedY = [ll[1] for ll in sortedXY]
+        f = poly1d(polyfit(sortedX, sortedY, 3))
+        ###calculate new x's and y's
+        x_fit = linspace(sortedX[0], sortedX[-1])
+        y_fit = f(x_fit)
         ##plot stds
         fig2 = figure()
         ax2 = fig2.add_subplot(111)
-        ax2.plot([kk[0] for kk in sortedXY],[mm[1] for mm in sortedXY], 'ro')
+        ax2.plot(sortedX, sortedY, 'ro', x_fit, y_fit)
         xlabel('Distances (mm)')
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
+        text(0, 0, 'Polynomial Fit =\n        '  + str(f), fontsize = 7, transform=ax2.transAxes)
+        print(str(f))
         grid(True)
-        #fig2.savefig('std_vs_dis.png')
+        #save figure
+        fig2.savefig('std_vs_dis.png')
+        
+    def sup(self,s):
+        '''
+        Convert an integer in to a superscript representation in UTF-8
+        from:
+        https://gist.github.com/giannitedesco/637a936a91982cfc0c10#file-poly-py-L51
+        '''
+        c = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹']
+        out = ''
+        s = int(s)
+        while s:
+            d = s % 10
+            s /= 10
+            out = c[d] + out
+        return out
+        
+    def pretty(self, p):
+        '''
+        Pretty print a numpy poly1d
+        from:
+        https://gist.github.com/giannitedesco/637a936a91982cfc0c10#file-poly-py-L51
+        '''
+        out = ''
+        for i, c in enumerate(p):
+            def mul(co, b = True):
+                if 1.0 == co.round():
+                    return 'x'
+                else:
+                    if b:
+                        return '(%g*x)'%co
+                    else:
+                        return '%g*x'%co
+                    power = len(p) - i
+                    if i:
+                        if c < 0:
+                            out = out + ' - '
+                            c = -c
+                        else:
+                            out = out + ' + '
+                    if power == 0:
+                        out = out + '%s'%c
+                    elif power == 1:
+                        out = out + mul(c, b = False)
+                    else:
+                        out = out + '%s%s'%(mul(c), self.sup(power))
+        return out
         
             
