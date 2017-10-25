@@ -14,7 +14,7 @@ plotAllHist
 '''
 
 # Import #######################################################################################
-from numpy import std
+from numpy import std, ndarray
 from matplotlib.pyplot import ioff, hist, xlabel, ylabel, title, grid, savefig
 ################################################################################################
 
@@ -33,8 +33,9 @@ class plots(object):
         ioff()
         #start plotting
         for image in range(imageArray4D.shape[0]):
-            imageStd = std(imageArray4D[image])
-            n, bins, patches = hist(imageArray4D[image], facecolor='g')
+            flattenedArray = imageArray4D[image].flatten()
+            imageStd = std(flattenedArray)
+            n, bins, patches = hist(flattenedArray, facecolor='g')
             xlabel('Counts (per pixel)')
             ylabel('Frequency')
             title(filelist[image] + '\n' + 'std = ' + str(imageStd))
