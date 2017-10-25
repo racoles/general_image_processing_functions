@@ -1,7 +1,7 @@
 '''
 @title plot
 @author: Rebecca Coles
-Updated on Oct 24, 2017
+Updated on Oct 25, 2017
 Created on Oct 24, 2017
 
 cropAndResize
