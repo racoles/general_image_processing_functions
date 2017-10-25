@@ -15,7 +15,7 @@ plotAllHist_distances
 
 # Import #######################################################################################
 from numpy import std, zeros
-from matplotlib.pyplot import ioff, hist, xlabel, ylabel, title, grid, savefig, plot, figure
+from matplotlib.pyplot import ioff, xlabel, ylabel, title, grid, savefig, figure, ylim
 import os
 from os.path import basename
 from operator import itemgetter
@@ -41,7 +41,11 @@ class plots(object):
         for image in range(imageArray4D.shape[0]):
             flattenedArray = imageArray4D[image].flatten()
             stdList[image] = std(flattenedArray)
-            n, bins, patches = hist(flattenedArray, facecolor='g')
+            fig1 = figure()
+            ax1 = fig1.add_subplot(111)
+            #print (hist)
+            #print(bin_edges)
+            ax1.hist(flattenedArray, bins='rice', facecolor='g')
             xlabel('Counts (per pixel)')
             ylabel('Frequency')
             title(filelist[image] + '\n' + 'std = ' + str(stdList[image]))
@@ -69,6 +73,6 @@ class plots(object):
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
         grid(True)
-        fig2.savefig('std_vs_dis.png')
+        #fig2.savefig('std_vs_dis.png')
         
             
