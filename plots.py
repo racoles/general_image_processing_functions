@@ -80,11 +80,11 @@ class plots(object):
         xlabel('Distances (mm)')
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
-        text(0, 0, 'Polynomial Fit =\n        '  + str(f), fontsize = 7, transform=ax2.transAxes)
+        text(0, 0, 'Polynomial Fit =\n        '  + str(f), fontsize = 10, transform=ax2.transAxes)
         print(str(f))
         grid(True)
         #save figure
-        fig2.savefig('std_vs_dis.png')
+        fig2.savefig('std_vs_dis-fitted.png')
         
     def sup(self,s):
         '''
