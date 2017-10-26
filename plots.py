@@ -33,25 +33,31 @@ class plots(object):
         Accepts a 4D numpy array and plots histograms of the images.
         note: assumes filenames are distances (int)
         '''
+        #start plotting
+        for image in range(imageArray4D.shape[0]):
+            flattenedArray = imageArray4D[image].flatten()
+            fig1 = figure()
+            ax1 = fig1.add_subplot(111)
+            ax1.hist(flattenedArray, bins='rice', facecolor='g')
+            xlabel('Counts (per pixel)')
+            ylabel('Frequency')
+            title(filelist[image])
+            grid(True)
+            savefig(filelist[image] + ".png")
+     
+    def stdPlotAll(self, imageArray4D, filelist):
+        '''
+        Accepts a 4D numpy array and plots standard deviations of the images.
+        note: assumes filenames are distances (int)
+        '''
         # Turn interactive plotting off
         ioff()
         #std array
         stdList = zeros(imageArray4D.shape[0])
-        #start plotting
+        #get stds
         for image in range(imageArray4D.shape[0]):
             flattenedArray = imageArray4D[image].flatten()
             stdList[image] = std(flattenedArray)
-            fig1 = figure()
-            ax1 = fig1.add_subplot(111)
-            #print (hist)
-            #print(bin_edges)
-            ax1.hist(flattenedArray, bins='rice', facecolor='g')
-            xlabel('Counts (per pixel)')
-            ylabel('Frequency')
-            title(filelist[image] + '\n' + 'std = ' + str(stdList[image]))
-            grid(True)
-            #savefig(filelist[image] + ".png")
-            
         #plot stds
         ##create x values
         xx = []
@@ -73,32 +79,20 @@ class plots(object):
         ###calculate new x's and y's  (order = 2)
         xFit = linspace(sortedX[0], sortedX[-1])
         yFitOrder2 = f2(xFit)
-        ###calculate polynomial (order = 3)
-        f3 = poly1d(polyfit(sortedX, sortedY, 3))
-        ###calculate new x's and y's  (order = 3)
-        yFitOrder3 = f3(xFit)
         ## find best focus
-        #### find roots of both poly
-        polyRoots = roots(f3 - f2)
-        #### evaluate the third order poly for all of the roots to get the associated y values
-        polyRootsY = [f3(rootValue) for rootValue in polyRoots]
-        #### find maximum y value; the associated x is the value for best focus distance
-        bestFocusXListPosition = [mm for mm, nn in enumerate(polyRootsY) if nn == max(polyRootsY)]
-        bestFocusXValue = polyRoots[bestFocusXListPosition]
         ##plot stds
         fig2 = figure()
         ax2 = fig2.add_subplot(111)
-        ax2.plot(sortedX, sortedY, 'ro', xFit, yFitOrder2, xFit, yFitOrder3)
+        ax2.plot(sortedX, sortedY, 'ro', xFit, yFitOrder2)
         xlabel('Distances (mm)')
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
-        text(0, 0, 'Polynomial Fit (Order = 2):\n      ' + str(f2) + '\n\nPolynomial Fit (Order = 3):\n        '  
-             + str(f3) + '\n', fontsize = 7, transform=ax2.transAxes)
-        print(str(f2) + '\n\n' + str(f3))
+        text(0, 0, 'Polynomial Fit (Order = 2):\n      ' + str(f2), fontsize = 7, transform=ax2.transAxes)
+        print(str(f2) + '\n\n')
         grid(True)
-        ax2.annotate('Best Focus = ' + str(bestFocusXValue), xy=(bestFocusXValue, max(polyRootsY)), 
-                     xytext=(bestFocusXValue+4, max(polyRootsY)+3), fontsize = 7, 
-                     arrowprops=dict(arrowstyle='->', facecolor='black'),)
+        #ax2.annotate('Best Focus = ' + str(bestFocusXValue), xy=(bestFocusXValue, max(polyRootsY)), 
+        #             xytext=(bestFocusXValue+4, max(polyRootsY)+3), fontsize = 7, 
+        #             arrowprops=dict(arrowstyle='->', facecolor='black'),)
         #save figure
         fig2.savefig('std_vs_dis-fitted.png')
         
