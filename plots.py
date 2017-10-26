@@ -71,24 +71,24 @@ class plots(object):
         ###calculate polynomial (order = 2)
         f2 = poly1d(polyfit(sortedX, sortedY, 2))
         ###calculate new x's and y's  (order = 2)
-        x_fit = linspace(sortedX[0], sortedX[-1])
-        y_fit_order2 = f2(x_fit)
+        xFit = linspace(sortedX[0], sortedX[-1])
+        yFitOrder2 = f2(xFit)
         ###calculate polynomial (order = 3)
         f3 = poly1d(polyfit(sortedX, sortedY, 3))
         ###calculate new x's and y's  (order = 3)
-        y_fit_order3 = f3(x_fit)
+        yFitOrder3 = f3(xFit)
         ## find best focus
         #### find roots of both poly
         polyRoots = roots(f3 - f2)
-        #### evaluate the third order poly for all of the roots to get the associated y values, then
+        #### evaluate the third order poly for all of the roots to get the associated y values
         polyRootsY = [f3(rootValue) for rootValue in polyRoots]
-        #### find maximum y value; the associated x is the value for best focus
-        bestFocusY = max(polyRootsY)
-        bestFocusX = max()
+        #### find maximum y value; the associated x is the value for best focus distance
+        bestFocusXListPosition = [mm for mm, nn in enumerate(polyRootsY) if nn == max(polyRootsY)]
+        bestFocusXValue = polyRoots[bestFocusXListPosition]
         ##plot stds
         fig2 = figure()
         ax2 = fig2.add_subplot(111)
-        ax2.plot(sortedX, sortedY, 'ro', x_fit, y_fit_order2, x_fit, y_fit_order3)
+        ax2.plot(sortedX, sortedY, 'ro', xFit, yFitOrder2, xFit, yFitOrder3)
         xlabel('Distances (mm)')
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
@@ -96,6 +96,9 @@ class plots(object):
              + str(f3) + '\n', fontsize = 7, transform=ax2.transAxes)
         print(str(f2) + '\n\n' + str(f3))
         grid(True)
+        ax2.annotate('Best Focus = ' + str(bestFocusXValue), xy=(bestFocusXValue, max(polyRootsY)), 
+                     xytext=(bestFocusXValue+4, max(polyRootsY)+3), fontsize = 7, 
+                     arrowprops=dict(arrowstyle='->', facecolor='black'),)
         #save figure
         fig2.savefig('std_vs_dis-fitted.png')
         
