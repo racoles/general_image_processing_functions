@@ -93,13 +93,15 @@ class plots(object):
         xSplitPoint = optimize.newton(deriv, 20) # the int is an initial estimate of the zero that is near the actual zero.
         
         #get separate X and Y lists from sorted data
-        sortedXL = [kk[0] for kk in sortedXY if kk <= xSplitPoint]
-        sortedYL = [ll[1] for ll in sortedXY if ll[0] <= xSplitPoint]
-        sortedXR = [kk[0] for kk in sortedXY if kk >= xSplitPoint]
-        sortedYR = [ll[1] for ll in sortedXY if ll[0] >= xSplitPoint]
+        #sortedXL = [kk[0] for kk in sortedXY if kk <= xSplitPoint]
+        #sortedYL = [ll[1] for ll in sortedXY if ll[0] <= xSplitPoint]
+        #sortedXR = [kk[0] for kk in sortedXY if kk >= xSplitPoint]
+        #sortedYR = [ll[1] for ll in sortedXY if ll[0] >= xSplitPoint]
         #linear fit each side
-        mL, bL = polyfit(sortedXL, sortedYL, 1) #left
-        mR, bR = polyfit(sortedXR, sortedYR, 1) #right
+        mL, bL = polyfit([kk[0] for kk in sortedXY if kk <= xSplitPoint], 
+                         [ll[1] for ll in sortedXY if ll[0] <= xSplitPoint], 1) #left
+        mR, bR = polyfit([mm[0] for mm in sortedXY if mm >= xSplitPoint],
+                         [nn[1] for nn in sortedXY if nn[0] >= xSplitPoint], 1) #right
         
         #find intercept of the linear fits
         
