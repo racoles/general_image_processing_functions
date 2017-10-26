@@ -66,22 +66,27 @@ class plots(object):
         ##sort list by distance
         sortedXY = sorted(xy, key=itemgetter(0))
         ##best fit of data
-        ###calculate polynomial
         sortedX = [kk[0] for kk in sortedXY]
         sortedY = [ll[1] for ll in sortedXY]
-        f = poly1d(polyfit(sortedX, sortedY, 3))
-        ###calculate new x's and y's
+        ###calculate polynomial (order = 2)
+        f2 = poly1d(polyfit(sortedX, sortedY, 2))
+        ###calculate new x's and y's  (order = 2)
         x_fit = linspace(sortedX[0], sortedX[-1])
-        y_fit = f(x_fit)
+        y_fit_order2 = f2(x_fit)
+        ###calculate polynomial (order = 3)
+        f3 = poly1d(polyfit(sortedX, sortedY, 3))
+        ###calculate new x's and y's  (order = 3)
+        y_fit_order3 = f3(x_fit)
         ##plot stds
         fig2 = figure()
         ax2 = fig2.add_subplot(111)
-        ax2.plot(sortedX, sortedY, 'ro', x_fit, y_fit)
+        ax2.plot(sortedX, sortedY, 'ro', x_fit, y_fit_order2, x_fit, y_fit_order3)
         xlabel('Distances (mm)')
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
-        text(0, 0, 'Polynomial Fit =\n        '  + str(f), fontsize = 10, transform=ax2.transAxes)
-        print(str(f))
+        text(0, 0, 'Polynomial Fit (Order = 2):\n      ' + str(f2) + '\n\nPolynomial Fit (Order = 3):\n        '  
+             + str(f3) + '\n', fontsize = 7, transform=ax2.transAxes)
+        print(str(f2) + '\n\n' + str(f3))
         grid(True)
         #save figure
         fig2.savefig('std_vs_dis-fitted.png')
