@@ -19,7 +19,6 @@ from matplotlib.pyplot import ioff, xlabel, ylabel, title, grid, savefig, figure
 import os
 from os.path import basename
 from operator import itemgetter
-from scipy import optimize
 ################################################################################################
 
 class plots(object):
