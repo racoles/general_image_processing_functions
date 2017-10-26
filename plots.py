@@ -77,10 +77,6 @@ class plots(object):
         
         ################### best fit (poly order=2)###################
         
-        #get separate X and Y lists from sorted data
-        #sortedX = [kk[0] for kk in sortedXY]
-        #sortedY = [ll[1] for ll in sortedXY]
-        
         #calculate polynomial (order = 2)
         f2 = poly1d(polyfit(sortedXY[:][0], sortedXY[:][1], 2))
         
@@ -96,9 +92,14 @@ class plots(object):
         ##solve x for y = 0 (used to split data into left and right sides of the curve)
         xSplitPoint = optimize.newton(deriv, 20) # the int is an initial estimate of the zero that is near the actual zero.
         
+        #get separate X and Y lists from sorted data
+        sortedXL = [kk[0] for kk in sortedXY if kk <= xSplitPoint]
+        sortedYL = [ll[1] for ll in sortedXY if ll[0] <= xSplitPoint]
+        sortedXR = [kk[0] for kk in sortedXY if kk >= xSplitPoint]
+        sortedYR = [ll[1] for ll in sortedXY if ll[0] >= xSplitPoint]
         #linear fit each side
-        mL, bL = polyfit(x, y, 1) #left
-        mR, bR = polyfit(x, y, 1) #right
+        mL, bL = polyfit(sortedXL, sortedYL, 1) #left
+        mR, bR = polyfit(sortedXR, sortedYR, 1) #right
         
         #find intercept of the linear fits
         
