@@ -93,31 +93,38 @@ class plots(object):
         xSplitPoint = optimize.newton(deriv, 20) # the int is an initial estimate of the zero that is near the actual zero.
         
         #get separate X and Y lists from sorted data
-        #sortedXL = [kk[0] for kk in sortedXY if kk <= xSplitPoint]
-        #sortedYL = [ll[1] for ll in sortedXY if ll[0] <= xSplitPoint]
-        #sortedXR = [kk[0] for kk in sortedXY if kk >= xSplitPoint]
-        #sortedYR = [ll[1] for ll in sortedXY if ll[0] >= xSplitPoint]
+        sortedXL = [kk[0] for kk in sortedXY if kk[0] <= xSplitPoint]
+        sortedYL = [ll[1] for ll in sortedXY if ll[0] <= xSplitPoint]
+        sortedXR = [mm[0] for mm in sortedXY if mm[0] >= xSplitPoint]
+        sortedYR = [nn[1] for nn in sortedXY if nn[0] >= xSplitPoint]
         #linear fit each side
-        mL, bL = polyfit([kk[0] for kk in sortedXY if kk <= xSplitPoint], 
-                         [ll[1] for ll in sortedXY if ll[0] <= xSplitPoint], 1) #left
-        mR, bR = polyfit([mm[0] for mm in sortedXY if mm >= xSplitPoint],
-                         [nn[1] for nn in sortedXY if nn[0] >= xSplitPoint], 1) #right
+        mL, bL = polyfit(sortedXL, sortedYL, 1) #left
+        mR, bR = polyfit(sortedXR, sortedYR, 1) #right
         
         #find intercept of the linear fits
+        # want position where XL = XR and YL = YR using y =mx +b:
+        # mL*sortedXL + bL = mR*sortedXR + bR
+        # xInter = (bR-bL)/(mL-mR)
+        # yInter = mL*xInter +bL
+        xInter = (bR-bL)/(mL-mR)
+        yInter = mL*xInter +bL
         
         ################## plot stds ##################
         fig2 = figure()
         ax2 = fig2.add_subplot(111)
-        ax2.plot(sortedXY[:][0], sortedXY[:][1], 'ro', xFit, yFit)
+        ax2.plot(sortedXY[:][0], sortedXY[:][1], 'ro', 
+                 xFit, yFit, 
+                 sortedXY[:][0], mL*sortedXY[:][0]+bL,
+                 sortedXY[:][0], mR*sortedXY[:][0]+bR)
         xlabel('Distances (mm)')
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
         text(0, 0, 'Polynomial Fit (Order = 2):\n      ' + str(f2), fontsize = 7, transform=ax2.transAxes)
         print(str(f2) + '\n\n')
         grid(True)
-        #ax2.annotate('Best Focus = ' + str(bestFocusXValue), xy=(bestFocusXValue, max(polyRootsY)), 
-        #             xytext=(bestFocusXValue+4, max(polyRootsY)+3), fontsize = 7, 
-        #             arrowprops=dict(arrowstyle='->', facecolor='black'),)
+        ax2.annotate('Best Focus = ' + str(xInter), xy=(xInter, yInter), 
+                     xytext=(xInter+4, yInter+3), fontsize = 7, 
+                     arrowprops=dict(arrowstyle='->', facecolor='black'),)
         #save figure
         fig2.savefig('std_vs_dis-fitted.png')
         
