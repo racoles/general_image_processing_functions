@@ -122,7 +122,7 @@ class plots(object):
         title('Standard Deviation versus Distance')
         text(0, 0, 'Polynomial Fit (Order = 2):\n      ' + str(f2), fontsize = 7, transform=ax2.transAxes)
         grid(True)
-        ax2.annotate('Best Focus = ' + str(xInter)[0:5] + ' mm', xy=(xInter, yInter), 
+        ax2.annotate('Best Focus = ' + str(xInter)[0:8] + ' mm', xy=(xInter, yInter), 
                      xytext=(xInter+2, yInter+1), fontsize = 7, 
                      arrowprops=dict(arrowstyle='->', facecolor='black'),)
         #save figure
