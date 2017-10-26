@@ -78,14 +78,14 @@ class plots(object):
         ################### best fit (poly order=2)###################
         
         #get separate X and Y lists from sorted data
-        sortedX = [kk[0] for kk in sortedXY]
-        sortedY = [ll[1] for ll in sortedXY]
+        #sortedX = [kk[0] for kk in sortedXY]
+        #sortedY = [ll[1] for ll in sortedXY]
         
         #calculate polynomial (order = 2)
-        f2 = poly1d(polyfit(sortedX, sortedY, 2))
+        f2 = poly1d(polyfit(sortedXY[:][0], sortedXY[:][1], 2))
         
         #calculate new x's and y's  (order = 2)
-        xFit = linspace(sortedX[0], sortedX[-1])
+        xFit = linspace(sortedXY[0][0], sortedXY[-1][0])
         yFit = f2(xFit)
         
         ################### find best focus ###################
@@ -93,16 +93,19 @@ class plots(object):
         #find slope = 0 for fit, this will be used to split the data to a left and right liner fit
         ##find the first derivative of the poly1d
         deriv = polyder(f2)
-        ##solve x for y = 0
-        xx = optimize.newton(deriv, 20) # the number is an initial estimate of the zero that should be somewhere near the actual zero.
-        #split data into left and right sides of the curve
+        ##solve x for y = 0 (used to split data into left and right sides of the curve)
+        xSplitPoint = optimize.newton(deriv, 20) # the int is an initial estimate of the zero that is near the actual zero.
+        
         #linear fit each side
+        mL, bL = polyfit(x, y, 1) #left
+        mR, bR = polyfit(x, y, 1) #right
+        
         #find intercept of the linear fits
         
         ################## plot stds ##################
         fig2 = figure()
         ax2 = fig2.add_subplot(111)
-        ax2.plot(sortedX, sortedY, 'ro', xFit, yFit)
+        ax2.plot(sortedXY[:][0], sortedXY[:][1], 'ro', xFit, yFit)
         xlabel('Distances (mm)')
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
