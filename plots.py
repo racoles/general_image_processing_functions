@@ -14,7 +14,7 @@ plotAllHist_distances
 '''
 
 # Import #######################################################################################
-from numpy import std, zeros, poly1d, polyfit, linspace
+from numpy import std, zeros, poly1d, polyfit, linspace, roots
 from matplotlib.pyplot import ioff, xlabel, ylabel, title, grid, savefig, figure, text
 import os
 from os.path import basename
@@ -77,6 +77,14 @@ class plots(object):
         f3 = poly1d(polyfit(sortedX, sortedY, 3))
         ###calculate new x's and y's  (order = 3)
         y_fit_order3 = f3(x_fit)
+        ## find best focus
+        #### find roots of both poly
+        polyRoots = roots(f3 - f2)
+        #### evaluate the third order poly for all of the roots to get the associated y values, then
+        polyRootsY = [f3(rootValue) for rootValue in polyRoots]
+        #### find maximum y value; the associated x is the value for best focus
+        bestFocusY = max(polyRootsY)
+        bestFocusX = max()
         ##plot stds
         fig2 = figure()
         ax2 = fig2.add_subplot(111)
