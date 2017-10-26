@@ -14,11 +14,12 @@ plotAllHist_distances
 '''
 
 # Import #######################################################################################
-from numpy import std, zeros, poly1d, polyfit, linspace, roots
+from numpy import std, zeros, poly1d, polyfit, linspace, polyder
 from matplotlib.pyplot import ioff, xlabel, ylabel, title, grid, savefig, figure, text
 import os
 from os.path import basename
 from operator import itemgetter
+from scipy import optimize
 ################################################################################################
 
 class plots(object):
@@ -52,38 +53,56 @@ class plots(object):
         '''
         # Turn interactive plotting off
         ioff()
+        
         #std array
         stdList = zeros(imageArray4D.shape[0])
+        
         #get stds
         for image in range(imageArray4D.shape[0]):
             flattenedArray = imageArray4D[image].flatten()
             stdList[image] = std(flattenedArray)
-        #plot stds
-        ##create x values
+        
+        #create x values by remove extension from filenames and converting them to ints
         xx = []
-        ##remove extension from filenames
         [xx.append(os.path.splitext(filelist[image])[0]) for image in range(len(filelist))]
-        ##get basename of files
-        for ii in range(len(xx)): 
+        for ii in range(len(xx)):#get basename of files
             xx[ii] = int(basename(xx[ii]))
-        ##zip xx and yy values into array of tulups
+            
+        #zip xx and yy values into array of tulups
         xy = []
         [xy.append(jj) for jj in zip(xx, stdList)]
-        ##sort list by distance
+        
+        #sort list by distance (x)
         sortedXY = sorted(xy, key=itemgetter(0))
-        ##best fit of data
+        
+        ################### best fit (poly order=2)###################
+        
+        #get separate X and Y lists from sorted data
         sortedX = [kk[0] for kk in sortedXY]
         sortedY = [ll[1] for ll in sortedXY]
-        ###calculate polynomial (order = 2)
+        
+        #calculate polynomial (order = 2)
         f2 = poly1d(polyfit(sortedX, sortedY, 2))
-        ###calculate new x's and y's  (order = 2)
+        
+        #calculate new x's and y's  (order = 2)
         xFit = linspace(sortedX[0], sortedX[-1])
-        yFitOrder2 = f2(xFit)
-        ## find best focus
-        ##plot stds
+        yFit = f2(xFit)
+        
+        ################### find best focus ###################
+        
+        #find slope = 0 for fit, this will be used to split the data to a left and right liner fit
+        ##find the first derivative of the poly1d
+        deriv = polyder(f2)
+        ##solve x for y = 0
+        xx = optimize.newton(deriv, 20) # the number is an initial estimate of the zero that should be somewhere near the actual zero.
+        #split data into left and right sides of the curve
+        #linear fit each side
+        #find intercept of the linear fits
+        
+        ################## plot stds ##################
         fig2 = figure()
         ax2 = fig2.add_subplot(111)
-        ax2.plot(sortedX, sortedY, 'ro', xFit, yFitOrder2)
+        ax2.plot(sortedX, sortedY, 'ro', xFit, yFit)
         xlabel('Distances (mm)')
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
