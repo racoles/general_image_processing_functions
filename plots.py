@@ -120,7 +120,9 @@ class plots(object):
         xlabel('Distances (mm)')
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
-        text(0, 0, 'Polynomial Fit (Order = 2):\n      ' + str(f2), fontsize = 7, transform=ax2.transAxes)
+        text(0, 0, 'Left Linear Fit: y=' + mL + 'x+' + bL + 
+             '\nRight Linear Fit: y=' + mR + 'x+' + bR + 
+             'Polynomial Fit (Order = 2):\n      ' + str(f2), fontsize = 7, transform=ax2.transAxes)
         grid(True)
         ax2.annotate('Best Focus = ' + str(xInter)[0:8] + ' mm', xy=(xInter, yInter), 
                      xytext=(xInter+2, yInter+1), fontsize = 7, 
