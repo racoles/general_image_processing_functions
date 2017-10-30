@@ -117,15 +117,15 @@ class plots(object):
         ax2.plot(sortedX, sortedY, 'ro', xFit, yFit, 
                  sortedXL, [mL*ll+bL for ll in sortedXL], 
                  sortedXR, [mR*mm+bR for mm in sortedXR])
-        xlabel('Distances (mm)')
+        xlabel('Focal Position (microns)')
         ylabel('Standard Deviation')
         title('Standard Deviation versus Distance')
-        text(0, 0, 'Left Linear Fit: y=' + mL + 'x+' + bL + 
-             '\nRight Linear Fit: y=' + mR + 'x+' + bR + 
-             'Polynomial Fit (Order = 2):\n      ' + str(f2), fontsize = 7, transform=ax2.transAxes)
+        text(0, 0, 'Left Linear Fit: y = ' + str(mL) + ' x + ' + str(bL) + 
+             '\n\nRight Linear Fit: y = ' + str(mR) + ' x + ' + str(bR) + 
+             '\n\nPolynomial Fit:\n        ' + str(f2), fontsize = 7, transform=ax2.transAxes)
         grid(True)
-        ax2.annotate('Best Focus = ' + str(xInter)[0:8] + ' mm', xy=(xInter, yInter), 
-                     xytext=(xInter+2, yInter+1), fontsize = 7, 
+        ax2.annotate('Best Focus = ' + str(xInter)[0:5] + ' um', xy=(xInter, yInter), 
+                     xytext=(xInter+4, yInter+2), fontsize = 7, 
                      arrowprops=dict(arrowstyle='->', facecolor='black'),)
         #save figure
         fig2.savefig('std_vs_dis-fitted.png')
