@@ -125,7 +125,7 @@ class plots(object):
              '\n\nPolynomial Fit:\n        ' + str(f2), fontsize = 7, transform=ax2.transAxes)
         grid(True)
         ax2.annotate('Best Focus = ' + str(xInter)[0:5] + ' um', xy=(xInter, yInter), 
-                     xytext=(xInter+4, yInter+2), fontsize = 7, 
+                     xytext=(xInter+2, yInter+1), fontsize = 7, 
                      arrowprops=dict(arrowstyle='->', facecolor='black'),)
         #save figure
         fig2.savefig('std_vs_position-fitted.png')
