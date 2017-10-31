@@ -128,7 +128,7 @@ class plots(object):
                      xytext=(xInter+4, yInter+2), fontsize = 7, 
                      arrowprops=dict(arrowstyle='->', facecolor='black'),)
         #save figure
-        fig2.savefig('std_vs_dis-fitted.png')
+        fig2.savefig('std_vs_position-fitted.png')
         
     def sup(self,s):
         '''
