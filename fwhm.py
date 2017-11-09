@@ -34,4 +34,7 @@ class fwhm(object):
         return min(xs), max(xs)
     
     def fwhmPlotAll(self, imageArray4D, filelist):
+        '''
+        Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
+        '''
         pass
