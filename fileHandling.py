@@ -31,6 +31,7 @@ class fileHandling(object):
         '''
         Constructor
         '''
+        
     def openFile(self):
         '''
         Create open file dialogue box

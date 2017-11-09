@@ -16,7 +16,7 @@ openAllFITSImagesInDirectory
 '''
 
 # Import #######################################################################################
-from numpy import asarray, array, newaxis
+from numpy import asarray, array
 from PIL import Image
 from fileHandling import fileHandling
 from glob import glob
