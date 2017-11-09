@@ -1,7 +1,7 @@
 '''
 @title general_image_processing_functions
 @author: Rebecca Coles
-Updated on Oct 25, 2017
+Updated on Nov 09, 2017
 Created on Sep 13, 2017
 
 general_image_processing_functions
@@ -21,14 +21,20 @@ if __name__ == '__main__':
     im = imageToArray()
     cl = colorAndIntensity()
     fH = fileHandling()
+    pl = plots()
+    
     #cutList = cl.colorFinder(im.nonfitsImageToArray(), r=150)
     #image = im.nonfitsImageToArray()
     #savedFITs = fH.saveAsFITs(image, '5')
     
     #hist for a 4D array of FITs images
-    #pl = plots()
     #imageArray, fileList = im.openAllFITSImagesInDirectory()
     #pl.stdPlotAll(imageArray, fileList)
+    
+    #fwhm for a 4D array of FITs images
+    fw = fwhm()
+    imageArray, fileList = im.openAllFITSImagesInDirectory()
+    fw.fwhmPlotAll(imageArray, fileList)
     
     
     
