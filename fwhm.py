@@ -1,7 +1,7 @@
 '''
 @title fwhm
 @author: Rebecca Coles
-Updated on Oct 12, 2017
+Updated on Nov 09, 2017
 Created on Oct 12, 2017
 
 fwhm
@@ -32,3 +32,6 @@ class fwhm(object):
         max_y = max(array3D)  # Find the maximum y value
         xs = [x for x in range(20) if array3D[x] > max_y/2.0] #######################################
         return min(xs), max(xs)
+    
+    def fwhmPlotAll(self, imageArray4D, filelist):
+        pass
