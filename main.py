@@ -26,9 +26,9 @@ if __name__ == '__main__':
     #savedFITs = fH.saveAsFITs(image, '5')
     
     #hist for a 4D array of FITs images
-    pl = plots()
-    imageArray, fileList = im.openAllFITSImagesInDirectory()
-    pl.stdPlotAll(imageArray, fileList)
+    #pl = plots()
+    #imageArray, fileList = im.openAllFITSImagesInDirectory()
+    #pl.stdPlotAll(imageArray, fileList)
     
     
     
