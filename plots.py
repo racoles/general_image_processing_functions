@@ -27,6 +27,7 @@ from matplotlib.pyplot import ioff, xlabel, ylabel, title, grid, savefig, figure
 import os
 from os.path import basename
 from operator import itemgetter
+from fwhm import fwhm
 ################################################################################################
 
 class plots(object):
@@ -140,8 +141,12 @@ class plots(object):
         '''
         Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
         '''
-        #create x values by remove extension from filenames and converting them to ints
+        #Create x values by remove extension from filenames and converting them to ints
         xx = self.fileNameToInt(filelist)
+        
+        #Get fwhm for all of the images
+        fw = fwhm(), yy = []
+        [yy.append(fw.fwhmPlotAll(imageArray4D[ii,:,:])) for ii in range(imageArray4D[0])]
     
     def fileNameToInt(self, filelist):
         '''

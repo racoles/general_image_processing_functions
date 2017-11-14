@@ -13,7 +13,6 @@ image processing that I do.
 from imageToArray import imageToArray
 from colorAndIntensity import colorAndIntensity
 from fileHandling import fileHandling
-from fwhm import fwhm
 from plots import plots
 ################################################################################################
 
@@ -22,7 +21,6 @@ if __name__ == '__main__':
     cl = colorAndIntensity()
     fH = fileHandling()
     pl = plots()
-    fw = fwhm()
     
     #cutList = cl.colorFinder(im.nonfitsImageToArray(), r=150)
     #image = im.nonfitsImageToArray()
@@ -33,8 +31,8 @@ if __name__ == '__main__':
     #pl.stdPlotAll(imageArray, fileList)
     
     #fwhm for a 4D array of FITs images
-    #imageArray, fileList = im.openAllFITSImagesInDirectory()
-    #fw.fwhmPlotAll(imageArray, fileList)
+    imageArray, fileList = im.openAllFITSImagesInDirectory()
+    pl.fwhmPlotAll(imageArray, fileList)
     
     
     
