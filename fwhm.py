@@ -16,6 +16,7 @@ focusCurve
 '''
 
 # Import #######################################################################################
+from numpy import where
 ################################################################################################
 
 class fwhm(object):
@@ -29,9 +30,13 @@ class fwhm(object):
         '''
         Accepts a 3D array and finds the FWHM of the image.
         '''
-        max_y = max(array3D)  # Find the maximum y value
-        xs = [x for x in range(20) if array3D[x] > max_y/2.0] #######################################
-        return min(xs), max(xs)
+        #create histogram of image intensities
+        #fit histogram
+        #find when function crosses line half_max (when sign of diff flips)
+        #take the 'derivative' of signum(half_max - Y[])
+        d = array3D - (max(array3D) / 2) #sign(half_max - array(Y[0:-1])) - sign(half_max - array(Y[1:]))
+        indexes = where(d > 0)[0] 
+        return abs(X[indexes[-1]] - X[indexes[0]])
     
     def fwhmPlotAll(self, imageArray4D, filelist):
         '''
