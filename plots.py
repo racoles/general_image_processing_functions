@@ -147,6 +147,17 @@ class plots(object):
         #Get fwhm for all of the images
         fw = fwhm(), yy = []
         [yy.append(fw.fwhmPlotAll(imageArray4D[ii,:,:])) for ii in range(imageArray4D[0])]
+        
+        #plot focus curve
+        fig = figure()
+        ax = fig.add_subplot(111)
+        ax.plot(xx, yy, 'ro')
+        xlabel('Focal Position (microns)')
+        ylabel('FWHM')
+        title('FWHM versus Distance')
+        grid(True)
+        #save figure
+        fig.savefig('fwhm_vs_position.png')
     
     def fileNameToInt(self, filelist):
         '''
