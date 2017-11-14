@@ -33,8 +33,8 @@ if __name__ == '__main__':
     #pl.stdPlotAll(imageArray, fileList)
     
     #fwhm for a 4D array of FITs images
-    imageArray, fileList = im.openAllFITSImagesInDirectory()
-    fw.fwhmPlotAll(imageArray, fileList)
+    #imageArray, fileList = im.openAllFITSImagesInDirectory()
+    #fw.fwhmPlotAll(imageArray, fileList)
     
     
     

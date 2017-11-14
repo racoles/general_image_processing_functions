@@ -16,6 +16,9 @@ stdPlotAll
     Note: assumes filenames are distances (int)
 fwhmPlotAll
     Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
+fileNameToInt
+    Create x values by remove extension from filenames and converting them to ints
+
 '''
 
 # Import #######################################################################################
@@ -67,10 +70,7 @@ class plots(object):
             stdList[image] = std(flattenedArray)
         
         #create x values by remove extension from filenames and converting them to ints
-        xx = []
-        [xx.append(os.path.splitext(filelist[image])[0]) for image in range(len(filelist))]
-        for ii in range(len(xx)):#get basename of files
-            xx[ii] = int(basename(xx[ii]))
+        xx = self.fileNameToInt(filelist)
             
         #zip xx and yy values into array of tulups
         xy = []
@@ -140,4 +140,15 @@ class plots(object):
         '''
         Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
         '''
-        pass
+        #create x values by remove extension from filenames and converting them to ints
+        xx = self.fileNameToInt(filelist)
+    
+    def fileNameToInt(self, filelist):
+        '''
+        Create x values by remove extension from filenames and converting them to ints
+        '''
+        xx = []
+        [xx.append(os.path.splitext(filelist[image])[0]) for image in range(len(filelist))]
+        for ii in range(len(xx)):#get basename of files
+            xx[ii] = int(basename(xx[ii]))
+        return xx
