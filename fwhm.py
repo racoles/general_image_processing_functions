@@ -30,10 +30,10 @@ class fwhm(object):
         Accepts a 3D array and finds the FWHM of the image.
         '''
         #create histogram of image intensities and fit histogram
-        mean = mean(array3D)
+        mean_value = mean(array3D)
         sigma = sqrt(var(array3D)) #sqrt(variance)
         xx = linspace(min(array3D), max(array3D), 100)
-        yy = normpdf(xx, mean, sigma)
+        yy = normpdf(xx, mean_value, sigma)
         
         #find when function crosses line half_max (when sign of diff flips)
         #take the 'derivative' of signum(half_max - Y[])

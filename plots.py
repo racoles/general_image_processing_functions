@@ -145,8 +145,9 @@ class plots(object):
         xx = self.fileNameToInt(filelist)
         
         #Get fwhm for all of the images
-        fw = fwhm(), yy = []
-        [yy.append(fw.fwhmPlotAll(imageArray4D[ii,:,:])) for ii in range(imageArray4D[0])]
+        fw = fwhm()
+        yy = []
+        [yy.append(fw.fwhm3D(imageArray4D[ii])) for ii in range(imageArray4D.shape[0])]
         
         #plot focus curve
         fig = figure()
