@@ -122,10 +122,11 @@ class plots(object):
         title('Standard Deviation versus Distance')
         text(0, 0, 'Left Linear Fit: y = ' + str(mL) + ' x + ' + str(bL) + 
              '\n\nRight Linear Fit: y = ' + str(mR) + ' x + ' + str(bR) + 
-             '\n\nPolynomial Fit:\n        ' + str(f2), fontsize = 7, transform=ax2.transAxes)
+             '\n\nPolynomial Fit:\n        ' + str(f2) +
+             '\n\nPolynomial Fit Max Distance= ' + str(xSplitPoint)[0:3] + ' um\n', fontsize = 7, transform=ax2.transAxes)
         grid(True)
         ax2.annotate('Best Focus = ' + str(xInter)[0:5] + ' um', xy=(xInter, yInter), 
-                     xytext=(xInter+2, yInter+1), fontsize = 7, 
-                     arrowprops=dict(arrowstyle='->', facecolor='black'),)
+                     xytext=(xInter+1, yInter+1), fontsize = 7, 
+                     arrowprops=dict(arrowstyle='->', facecolor='black'),)   
         #save figure
         fig2.savefig('std_vs_position-fitted.png')

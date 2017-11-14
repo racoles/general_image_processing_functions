@@ -27,14 +27,14 @@ if __name__ == '__main__':
     #image = im.nonfitsImageToArray()
     #savedFITs = fH.saveAsFITs(image, '5')
     
-    #hist for a 4D array of FITs images
+    #focus curve for a 4D array of FITs images
     #imageArray, fileList = im.openAllFITSImagesInDirectory()
     #pl.stdPlotAll(imageArray, fileList)
     
     #fwhm for a 4D array of FITs images
-    fw = fwhm()
-    imageArray, fileList = im.openAllFITSImagesInDirectory()
-    fw.fwhmPlotAll(imageArray, fileList)
+    #fw = fwhm()
+    #imageArray, fileList = im.openAllFITSImagesInDirectory()
+    #fw.fwhmPlotAll(imageArray, fileList)
     
     
     
