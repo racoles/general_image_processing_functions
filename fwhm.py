@@ -14,8 +14,8 @@ fwhm3D
 '''
 
 # Import #######################################################################################
-from numpy import where
-from matplotlib.pyplot import ioff, figure
+from numpy import where, mean, var, sqrt, linspace
+from matplotlib.mlab import normpdf
 ################################################################################################
 
 class fwhm(object):
@@ -29,15 +29,11 @@ class fwhm(object):
         '''
         Accepts a 3D array and finds the FWHM of the image.
         '''
-        # Turn interactive plotting off by default
-        ioff()
-        
-        #create histogram of image intensities
-        fig1 = figure()
-        ax1 = fig1.add_subplot(111)
-        ax1.hist(array3D, bins='rice', facecolor='g')
-        
-        #fit histogram
+        #create histogram of image intensities and fit histogram
+        mean = mean(array3D)
+        sigma = sqrt(var(array3D)) #sqrt(variance)
+        xx = linspace(min(array3D), max(array3D), 100)
+        yy = normpdf(xx, mean, sigma)
         
         #find when function crosses line half_max (when sign of diff flips)
         #take the 'derivative' of signum(half_max - Y[])
