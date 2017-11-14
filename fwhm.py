@@ -29,7 +29,7 @@ class fwhm(object):
         '''
         Accepts a 3D array and finds the FWHM of the image.
         '''
-        #create histogram of image intensities and fit histogram
+        #Gaussian fit data
         mean_value = mean(array3D)
         sigma = sqrt(var(array3D)) #sqrt(variance)
         xx = linspace(min(array3D), max(array3D), 100)
