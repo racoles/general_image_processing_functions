@@ -44,9 +44,3 @@ class fwhm(object):
         d = array3D - (max(array3D) / 2) #sign(half_max - array(Y[0:-1])) - sign(half_max - array(Y[1:]))
         indexes = where(d > 0)[0] 
         return abs(X[indexes[-1]] - X[indexes[0]])
-    
-    def fwhmPlotAll(self, imageArray4D, filelist):
-        '''
-        Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
-        '''
-        pass
