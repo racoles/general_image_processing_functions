@@ -14,7 +14,7 @@ fwhm3D
 '''
 
 # Import #######################################################################################
-from numpy import where, mean, var, sqrt, linspace
+from numpy import where, mean, var, sqrt, linspace, min, max
 from matplotlib.mlab import normpdf
 ################################################################################################
 
