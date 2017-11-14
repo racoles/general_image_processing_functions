@@ -11,12 +11,11 @@ full-well-half-maximum of a given curve.
 Modules:
 fwhm3D
     This function accepts a 3D array and finds the FWHM of the image.
-focusCurve
-    Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
 '''
 
 # Import #######################################################################################
 from numpy import where
+from matplotlib.pyplot import ioff, figure
 ################################################################################################
 
 class fwhm(object):
@@ -30,8 +29,16 @@ class fwhm(object):
         '''
         Accepts a 3D array and finds the FWHM of the image.
         '''
+        # Turn interactive plotting off by default
+        ioff()
+        
         #create histogram of image intensities
+        fig1 = figure()
+        ax1 = fig1.add_subplot(111)
+        ax1.hist(array3D, bins='rice', facecolor='g')
+        
         #fit histogram
+        
         #find when function crosses line half_max (when sign of diff flips)
         #take the 'derivative' of signum(half_max - Y[])
         d = array3D - (max(array3D) / 2) #sign(half_max - array(Y[0:-1])) - sign(half_max - array(Y[1:]))

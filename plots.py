@@ -11,6 +11,11 @@ Modules:
 plotAllHist_distances
     This function accepts a 4D numpy array and plots histograms of the images that are saved
     to files. This functions assumes that the distances are the filenames (int)
+stdPlotAll
+    Accepts a 4D numpy array and plots standard deviations of the images.
+    Note: assumes filenames are distances (int)
+fwhmPlotAll
+    Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
 '''
 
 # Import #######################################################################################
@@ -130,3 +135,9 @@ class plots(object):
                      arrowprops=dict(arrowstyle='->', facecolor='black'),)   
         #save figure
         fig2.savefig('std_vs_position-fitted.png')
+        
+    def fwhmPlotAll(self, imageArray4D, filelist):
+        '''
+        Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
+        '''
+        pass
