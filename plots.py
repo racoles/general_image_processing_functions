@@ -77,19 +77,18 @@ class plots(object):
         
         #create x values by remove extension from filenames and converting them to ints
         xx = self.fileNameToInt(filelist)
-
+        
+        ################### best fit (poly order=2) ###################
+        
         #zip xx and yy = std values into array of tulups
         #sort list by distance (x) so xx (distances) are in the proper order in the plot
         sortedX, sortedY = self.zipAndSort(xx, stdList)
         
-        ################### best fit (poly order=2) ###################
-        
         #calculate polynomial (order = 2)
         f2 = poly1d(polyfit(sortedX, sortedY, 2))
         
-        #calculate new x's and y's  (order = 2)
-        xFit = linspace(sortedX[0], sortedX[-1])
-        yFit = f2(xFit)
+        #calculate new x's and y's
+        xFit, yFit = self.xyPolyFit(sortedX, sortedY, 2)
         
         ################### find best focus ###################
         
@@ -159,12 +158,8 @@ class plots(object):
         #sort list by distance (x) so xx (distances) are in the proper order in the plot
         sortedX, sortedY = self.zipAndSort(xx, yy)
         
-        #calculate polynomial (order = 2)
-        f2 = poly1d(polyfit(sortedX, sortedY, 2))
-        
         #calculate new x's and y's
-        xFit = linspace(sortedX[0], sortedX[-1])
-        yFit = f2(xFit)
+        xFit, yFit = self.xyPolyFit(sortedX, sortedY, 2)
         
         ################### plot fwhm focus curve ###################
         
@@ -175,7 +170,7 @@ class plots(object):
         ylabel('FWHM (pixels)')
         title('FWHM versus Distance')
         grid(True)
-        
+        text(0, 0, 'Polynomial Fit:\n        ' + str(poly1d(polyfit(sortedX, sortedY, 2))), fontsize = 7, transform=ax.transAxes)
         #save figure
         fig.savefig('fwhm_vs_position.png')
     
