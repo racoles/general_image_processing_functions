@@ -88,7 +88,7 @@ class plots(object):
         sortedX, sortedY  = self.zipAndSort(xx, stdList)
         
         #calculate new x's and y's, poly fuct, and best focus (xSplitPoint)
-        xFit, yFit, funct, xSplitPoint = self.xyPolyFit(sortedX, sortedY, 2)
+        xFit, yFit, f2, xSplitPoint = self.xyPolyFit(sortedX, sortedY, 2)
         
         ################### find best focus ###################
         
