@@ -24,6 +24,9 @@ zipAndSort
 xyPolyFit
     Calculate polynomial fit (order given)
     Calculate new x's and y's for plotting
+    Find slope = 0 for fit, this will be used to split the data to a left and right liner fit
+    Find the first derivative of the poly1d
+    Solve deriv =ax + b for deriv = 0 (point of best focus)
 '''
 
 # Import #######################################################################################
@@ -82,13 +85,13 @@ class plots(object):
         
         #zip xx and yy = std values into array of tulups
         #sort list by distance (x) so xx (distances) are in the proper order in the plot
-        sortedX, sortedY = self.zipAndSort(xx, stdList)
+        sortedX, sortedY  = self.zipAndSort(xx, stdList)
         
         #calculate polynomial (order = 2)
         f2 = poly1d(polyfit(sortedX, sortedY, 2))
         
         #calculate new x's and y's
-        xFit, yFit = self.xyPolyFit(sortedX, sortedY, 2)
+        xFit, yFit, funct, xSplitPoint = self.xyPolyFit(sortedX, sortedY, 2)
         
         ################### find best focus ###################
         
@@ -192,21 +195,36 @@ class plots(object):
         #zip xx and yy
         xy = []
         [xy.append(jj) for jj in zip(xx, yy)]
+        
         #sort list by distance (x)
         sortedXY = sorted(xy, key=itemgetter(0))
+        
         #seperate into X and Y
         sortedX = [kk[0] for kk in sortedXY]
         sortedY = [ll[1] for ll in sortedXY]
+        
         return sortedX, sortedY
     
     def xyPolyFit(self, xx, yy, order):
         '''
         Calculate polynomial fit (order given)
         Calculate new x's and y's for plotting
+        Find slope = 0 for fit, this will be used to split the data to a left and right liner fit
+        Find the first derivative of the poly1d
+        Solve deriv =ax + b for deriv = 0 (point of best focus)
         '''
         #calculate polynomial
-        f2 = poly1d(polyfit(xx, yy, order))
+        funct = poly1d(polyfit(xx, yy, order))
+        
         #calculate new x's and y's
         xFit = linspace(xx[0], xx[-1])
-        yFit = f2(xFit)
-        return xFit, yFit
+        yFit = funct(xFit)
+        
+        #find slope = 0 for fit, this will be used to split the data to a left and right liner fit
+        ##find the first derivative of the poly1d
+        deriv = polyder(funct)
+        
+        ##solve deriv =ax + b for deriv = 0 (used to split data into left and right sides of the curve)
+        bestFocus = (0-deriv.c[1])/(deriv.c[0])
+        
+        return xFit, yFit, funct, bestFocus
