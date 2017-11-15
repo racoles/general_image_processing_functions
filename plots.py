@@ -62,7 +62,7 @@ class plots(object):
         # Turn interactive plotting off
         ioff()
         
-        #std array
+        #initialize std array
         stdList = zeros(imageArray4D.shape[0])
         
         #get stds
@@ -72,20 +72,14 @@ class plots(object):
         
         #create x values by remove extension from filenames and converting them to ints
         xx = self.fileNameToInt(filelist)
-            
-        #zip xx and yy values into array of tulups
-        xy = []
-        [xy.append(jj) for jj in zip(xx, stdList)]
+
+        #zip xx and yy = std values into array of tulups
+        #sort list by distance (x) so xx (distances) are in the proper order in the plot
+        sortedX, sortedY = self.zipAndSort(xx, stdList)
         
-        #sort list by distance (x)
-        sortedXY = sorted(xy, key=itemgetter(0))
-        
-        ################### best fit (poly order=2)###################
-        sortedX = [kk[0] for kk in sortedXY]
-        sortedY = [ll[1] for ll in sortedXY]
+        ################### best fit (poly order=2) ###################
         
         #calculate polynomial (order = 2)
-        #polyfit(sortedX, sortedY, 2)
         f2 = poly1d(polyfit(sortedX, sortedY, 2))
         
         #calculate new x's and y's  (order = 2)
@@ -105,14 +99,17 @@ class plots(object):
         sortedYL = sortedY[:len(sortedXL)]
         sortedXR = sortedX[len(sortedXL):]
         sortedYR = sortedY[len(sortedXL):]
+        
         #linear fit each side
         mL, bL = polyfit(sortedXL, sortedYL, 1) #left
         mR, bR = polyfit(sortedXR, sortedYR, 1) #right
+        
         #find intercept of the linear fits
         # want position where XL = XR and YL = YR using y =mx +b:
         # mL*sortedXL + bL = mR*sortedXR + bR
         xInter = (bR-bL)/(mL-mR)
         yInter = mL*xInter +bL
+        
         #add intercept point to x and y value sets
         sortedXL.append(xInter)
         sortedXR.append(xInter)
@@ -133,7 +130,8 @@ class plots(object):
         grid(True)
         ax2.annotate('Best Focus = ' + str(xInter)[0:5] + ' um', xy=(xInter, yInter), 
                      xytext=(xInter+1, yInter+1), fontsize = 7, 
-                     arrowprops=dict(arrowstyle='->', facecolor='black'),)   
+                     arrowprops=dict(arrowstyle='->', facecolor='black'),)  
+         
         #save figure
         fig2.savefig('std_vs_position-fitted.png')
         
@@ -144,19 +142,35 @@ class plots(object):
         #Create x values by remove extension from filenames and converting them to ints
         xx = self.fileNameToInt(filelist)
         
-        #Get fwhm for all of the images
+        ################### Get fwhm for all images ###################
+        
         fw = fwhm()
         yy = []
         [yy.append(fw.fwhm3D(imageArray4D[ii])) for ii in range(imageArray4D.shape[0])]
         
-        #plot focus curve
+        ################### best fit (poly order=3) ###################
+        
+        #zip xx and yy = fwhm values into array of tulups
+        #sort list by distance (x) so xx (distances) are in the proper order in the plot
+        sortedX, sortedY = self.zipAndSort(xx, yy)
+        
+        #calculate polynomial (order = 3)
+        f2 = poly1d(polyfit(xx, yy, 3))
+        
+        #calculate new x's and y's
+        xFit = linspace(xx[0], xx[-1])
+        yFit = f2(xFit)
+        
+        ################### plot fwhm focus curve ###################
+        
         fig = figure()
         ax = fig.add_subplot(111)
-        ax.plot(xx, yy, 'ro')
+        ax.plot(xx, yy, 'ro', xFit, yFit)
         xlabel('Focal Position (microns)')
         ylabel('FWHM (pixels)')
         title('FWHM versus Distance')
         grid(True)
+        
         #save figure
         fig.savefig('fwhm_vs_position.png')
     
@@ -169,3 +183,18 @@ class plots(object):
         for ii in range(len(xx)):#get basename of files
             xx[ii] = int(basename(xx[ii]))
         return xx
+    
+    def zipAndSort(self, xx, yy):
+        '''
+        Zip xx and yy = fwhm values into array of tulups
+        Sort list by distance (x) so xx (distances) are in the proper order in the plot
+        '''
+        #zip xx and yy
+        xy = []
+        [xy.append(jj) for jj in zip(xx, yy)]
+        #sort list by distance (x)
+        sortedXY = sorted(xy, key=itemgetter(0))
+        #seperate into X and Y
+        sortedX = [kk[0] for kk in sortedXY]
+        sortedY = [ll[1] for ll in sortedXY]
+        return sortedX, sortedY
