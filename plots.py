@@ -155,10 +155,10 @@ class plots(object):
         sortedX, sortedY = self.zipAndSort(xx, yy)
         
         #calculate polynomial (order = 3)
-        f2 = poly1d(polyfit(xx, yy, 3))
+        f2 = poly1d(polyfit(sortedX, sortedY, 3))
         
         #calculate new x's and y's
-        xFit = linspace(xx[0], xx[-1])
+        xFit = linspace(sortedX[0], sortedX[-1])
         yFit = f2(xFit)
         
         ################### plot fwhm focus curve ###################
