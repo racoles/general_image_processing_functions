@@ -87,19 +87,10 @@ class plots(object):
         #sort list by distance (x) so xx (distances) are in the proper order in the plot
         sortedX, sortedY  = self.zipAndSort(xx, stdList)
         
-        #calculate polynomial (order = 2)
-        f2 = poly1d(polyfit(sortedX, sortedY, 2))
-        
-        #calculate new x's and y's
+        #calculate new x's and y's, poly fuct, and best focus (xSplitPoint)
         xFit, yFit, funct, xSplitPoint = self.xyPolyFit(sortedX, sortedY, 2)
         
         ################### find best focus ###################
-        
-        #find slope = 0 for fit, this will be used to split the data to a left and right liner fit
-        ##find the first derivative of the poly1d
-        deriv = polyder(f2)
-        ##solve deriv =ax + b for deriv = 0 (used to split data into left and right sides of the curve)
-        xSplitPoint = (0-deriv.c[1])/(deriv.c[0])
         
         #get separate X and Y lists from sorted data
         sortedXL = [kk for kk in sortedX if kk <= xSplitPoint]
@@ -161,8 +152,8 @@ class plots(object):
         #sort list by distance (x) so xx (distances) are in the proper order in the plot
         sortedX, sortedY = self.zipAndSort(xx, yy)
         
-        #calculate new x's and y's
-        xFit, yFit = self.xyPolyFit(sortedX, sortedY, 2)
+        #calculate new x's and y's, poly fuct, and best focus
+        xFit, yFit, funct, bestFocus = self.xyPolyFit(sortedX, sortedY, 2)
         
         ################### plot fwhm focus curve ###################
         
@@ -173,7 +164,8 @@ class plots(object):
         ylabel('FWHM (pixels)')
         title('FWHM versus Distance')
         grid(True)
-        text(0, 0, 'Polynomial Fit:\n        ' + str(poly1d(polyfit(sortedX, sortedY, 2))), fontsize = 7, transform=ax.transAxes)
+        text(0, 0, 'Polynomial Fit:\n        ' + str(funct), fontsize = 7, transform=ax.transAxes)
+        
         #save figure
         fig.savefig('fwhm_vs_position.png')
     
