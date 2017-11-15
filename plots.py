@@ -18,7 +18,9 @@ fwhmPlotAll
     Accepts a 4D array and finds the FWHM of the images, and plots a focus curve.
 fileNameToInt
     Create x values by remove extension from filenames and converting them to ints
-
+zipAndSort
+        Zip xx and yy values into array of tulups
+        Sort list by distance (x) so xx (distances) are in the proper order in the plot
 '''
 
 # Import #######################################################################################
@@ -186,7 +188,7 @@ class plots(object):
     
     def zipAndSort(self, xx, yy):
         '''
-        Zip xx and yy = fwhm values into array of tulups
+        Zip xx and yy values into array of tulups
         Sort list by distance (x) so xx (distances) are in the proper order in the plot
         '''
         #zip xx and yy
