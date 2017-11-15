@@ -15,7 +15,7 @@ fwhm3D
 '''
 
 # Import #######################################################################################
-from numpy import amax, median, mean, sqrt, sum, shape, log, square, exp, abs, ravel, indices
+from numpy import amax, median, mean, sqrt, sum, shape, log, square, exp, abs, ravel, indices, copy
 from scipy.optimize import leastsq
 ################################################################################################
 
@@ -26,41 +26,40 @@ class fwhm(object):
         Constructor
         '''
         
-    def fwhm3D(self, array3D):
+    def fwhm3D(self, array3D, rowsMin, rowsMax, columnsMin, columnsMax):
         '''
         Accepts a 3D array and finds the FWHM (in pixels) of the image.
         FWHM is the gaussian PSF full width half maximum (fit result) in pixels
         '''
+        #Slice Image
+        data = copy(array3D[rowsMin:rowsMax, columnsMin:columnsMax])
         #Starting values
-        maxi = amax(array3D)
-        floor = median(array3D.flatten())
+        maxi = amax(data)
+        floor = median(data.flatten())
         height = maxi - floor
         if height == 0.0: # if object is saturated it could be that median value is 32767 or 65535 --> height=0
-            floor = mean(array3D.flatten())
+            floor = mean(data.flatten())
             height = maxi - floor
-        fwhm = sqrt(sum((array3D>floor+height/2.).flatten()))
-        #mean_x = (shape(array3D)[0]-1)/2
-        #mean_y = (shape(array3D)[1]-1)/2
-        #sig = fwhm / (2.*sqrt(2.*log(2.)))
-        #width = 0.5/square(sig)
-        #p0 = floor, height, mean_x, mean_y, width
+        fwhm = sqrt(sum((data>floor+height/2.).flatten()))
+        mean_x = (shape(data)[0]-1)/2
+        mean_y = (shape(data)[1]-1)/2
+        sig = fwhm / (2.*sqrt(2.*log(2.)))
+        width = 0.5/square(sig)
+        p0 = floor, height, mean_x, mean_y, width
         
         #Fitting Gaussian
-        #def gauss(floor, height, mean_x, mean_y, width):        
-        #    return lambda x,y: floor + height*exp(-abs(width)*((x-mean_x)**2+(y-mean_y)**2))
+        def gauss(floor, height, mean_x, mean_y, width):        
+            return lambda x,y: floor + height*exp(-abs(width)*((x-mean_x)**2+(y-mean_y)**2))
 
-        #def err(p,data):
-        #    return ravel(gauss(*p)(*indices(data.shape))-data)
+        def err(p,data):
+            return ravel(gauss(*p)(*indices(data.shape))-data)
     
-        #p = leastsq(err, p0, args=(array3D), maxfev=1000)
-        #p = p[0]
+        p = leastsq(err, p0, args=(data), maxfev=1000)
+        p = p[0]
         
         #Format results
-        #print(p)
-        #floor = p[0]
-        #height = p[1]
-        #sig = sqrt(0.5/abs(p[4]))
-        #fwhm = sig * (2.*sqrt(2.*log(2.)))
-        #print(sig)
-        #print(fwhm)
+        sig = sqrt(0.5/abs(p[4]))
+        fwhm = sig * (2.*sqrt(2.*log(2.)))
+        print(sig)
+        print(fwhm)
         return fwhm
