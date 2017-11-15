@@ -19,8 +19,11 @@ fwhmPlotAll
 fileNameToInt
     Create x values by remove extension from filenames and converting them to ints
 zipAndSort
-        Zip xx and yy values into array of tulups
-        Sort list by distance (x) so xx (distances) are in the proper order in the plot
+    Zip xx and yy values into array of tulups
+    Sort list by distance (x) so xx (distances) are in the proper order in the plot
+xyPolyFit
+    Calculate polynomial fit (order given)
+    Calculate new x's and y's for plotting
 '''
 
 # Import #######################################################################################
@@ -150,14 +153,14 @@ class plots(object):
         yy = []
         [yy.append(fw.fwhm3D(imageArray4D[ii])) for ii in range(imageArray4D.shape[0])]
         
-        ################### best fit (poly order=3) ###################
+        ################### best fit (poly order=2) ###################
         
         #zip xx and yy = fwhm values into array of tulups
         #sort list by distance (x) so xx (distances) are in the proper order in the plot
         sortedX, sortedY = self.zipAndSort(xx, yy)
         
-        #calculate polynomial (order = 3)
-        f2 = poly1d(polyfit(sortedX, sortedY, 3))
+        #calculate polynomial (order = 2)
+        f2 = poly1d(polyfit(sortedX, sortedY, 2))
         
         #calculate new x's and y's
         xFit = linspace(sortedX[0], sortedX[-1])
@@ -200,3 +203,15 @@ class plots(object):
         sortedX = [kk[0] for kk in sortedXY]
         sortedY = [ll[1] for ll in sortedXY]
         return sortedX, sortedY
+    
+    def xyPolyFit(self, xx, yy, order):
+        '''
+        Calculate polynomial fit (order given)
+        Calculate new x's and y's for plotting
+        '''
+        #calculate polynomial
+        f2 = poly1d(polyfit(xx, yy, order))
+        #calculate new x's and y's
+        xFit = linspace(xx[0], xx[-1])
+        yFit = f2(xFit)
+        return xFit, yFit
