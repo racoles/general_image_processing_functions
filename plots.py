@@ -164,7 +164,8 @@ class plots(object):
         ylabel('FWHM (pixels)')
         title('FWHM versus Distance')
         grid(True)
-        text(0, 0, 'Polynomial Fit:\n        ' + str(funct), fontsize = 7, transform=ax.transAxes)
+        text(0, 0, 'Polynomial Fit:\n        ' + str(funct) +
+             '\n\nBest Focus = ' + str(bestFocus) + ' um', fontsize = 7, transform=ax.transAxes)
         
         #save figure
         fig.savefig('fwhm_vs_position.png')
