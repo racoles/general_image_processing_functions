@@ -133,8 +133,8 @@ class plots(object):
              '\n\nPolynomial Fit Max Distance= ' + str(xSplitPoint)[0:3] + ' um\n', fontsize = 7, transform=ax2.transAxes)
         grid(True)
         ax2.annotate('Best Focus = ' + str(xInter)[0:5] + ' um', xy=(xInter, yInter), 
-                     xytext=(xInter+1, yInter+1), fontsize = 7, 
-                     arrowprops=dict(arrowstyle='->', facecolor='black'),)  
+                     xytext=(xInter+1, yInter+1), fontsize = 7,)
+                     #arrowprops=dict(arrowstyle='->', facecolor='black'),)  
          
         #save figure
         fig2.savefig('std_vs_position-fitted.png')
