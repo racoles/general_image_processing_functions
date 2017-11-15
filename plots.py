@@ -154,7 +154,7 @@ class plots(object):
         ax = fig.add_subplot(111)
         ax.plot(xx, yy, 'ro')
         xlabel('Focal Position (microns)')
-        ylabel('FWHM')
+        ylabel('FWHM (pixels)')
         title('FWHM versus Distance')
         grid(True)
         #save figure
