@@ -30,7 +30,6 @@ class fwhm(object):
         Accepts a 3D array and finds the FWHM (in pixels) of the image.
         FWHM is the gaussian PSF full width half maximum (fit result) in pixels
         '''
-        #Starting values
         maxi = amax(array3D)
         floor = median(array3D.flatten())
         height = maxi - floor
